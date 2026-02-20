@@ -5,8 +5,8 @@ import { Check, Zap } from 'lucide-react';
 const plans = [
   {
     name: 'Starter',
-    monthlyPrice: 997,
-    yearlyPrice: 797,
+    monthlyPrice: 14999,
+    yearlyPrice: 11999,
     description: 'Perfect for small businesses ready to establish their digital presence.',
     features: [
       'SEO Audit & Setup',
@@ -20,8 +20,8 @@ const plans = [
   },
   {
     name: 'Growth',
-    monthlyPrice: 2497,
-    yearlyPrice: 1997,
+    monthlyPrice: 29999,
+    yearlyPrice: 23999,
     description: 'Ideal for growing businesses that need comprehensive marketing support.',
     features: [
       'Everything in Starter',
@@ -37,8 +37,8 @@ const plans = [
   },
   {
     name: 'Enterprise',
-    monthlyPrice: 4997,
-    yearlyPrice: 3997,
+    monthlyPrice: 49999,
+    yearlyPrice: 39999,
     description: 'Full-service marketing partner for established brands scaling fast.',
     features: [
       'Everything in Growth',
@@ -144,7 +144,7 @@ export default function Pricing() {
                   className="flex items-end gap-1"
                 >
                   <span className={`text-4xl font-bold font-display ${plan.featured ? 'text-white' : 'text-foreground'}`}>
-                    ${(isYearly ? plan.yearlyPrice : plan.monthlyPrice).toLocaleString()}
+                    ₹{(isYearly ? plan.yearlyPrice : plan.monthlyPrice).toLocaleString('en-IN')}
                   </span>
                   <span className={`text-sm mb-1.5 ${plan.featured ? 'text-white/60' : 'text-muted-foreground'}`}>/mo</span>
                 </motion.div>

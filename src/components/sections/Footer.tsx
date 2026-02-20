@@ -36,10 +36,10 @@ export default function Footer() {
               onClick={(e) => { e.preventDefault(); handleNav('#home'); }}
               className="font-display text-2xl font-bold text-white mb-4 inline-block"
             >
-              Jane<span className="text-primary">.</span>Doe
+              Riya<span className="text-primary">.</span>Patel
             </a>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs mt-3 mb-6">
-              Digital Marketing Strategist helping brands grow through data-driven strategies. Based in New York, available worldwide.
+              Digital Marketing Strategist helping brands grow through data-driven strategies. Based in India, available worldwide.
             </p>
             <div className="flex items-center gap-1 text-white/50 text-xs">
               <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
@@ -109,7 +109,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/30">
-            © {new Date().getFullYear()} Jane Doe. All rights reserved.
+            © {new Date().getFullYear()} Riya Patel. All rights reserved.
           </p>
           <div className="flex gap-6">
             {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
