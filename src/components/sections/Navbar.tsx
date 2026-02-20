@@ -46,7 +46,7 @@ export default function Navbar() {
             onClick={(e) => { e.preventDefault(); handleNavClick('#home'); }}
             className="font-display text-xl font-bold text-foreground hover:text-primary transition-colors"
           >
-            Jane<span className="text-primary">.</span>Doe
+            Riya<span className="text-primary">.</span>Patel
           </a>
 
           {/* Desktop Nav */}
@@ -106,7 +106,7 @@ export default function Navbar() {
             >
               <div className="flex items-center justify-between p-6 border-b border-border">
                 <span className="font-display text-lg font-bold">
-                  Jane<span className="text-primary">.</span>Doe
+                  Riya<span className="text-primary">.</span>Patel
                 </span>
                 <button
                   onClick={() => setMobileOpen(false)}

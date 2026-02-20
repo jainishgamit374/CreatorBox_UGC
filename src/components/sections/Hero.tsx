@@ -49,9 +49,9 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.35, ease: 'easeOut' }}
             className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-foreground leading-[0.9] tracking-tight mb-6"
           >
-            Jane
+            Riya
             <br />
-            <span className="text-gradient italic">Doe</span>
+            <span className="text-gradient italic">Patel</span>
           </motion.h1>
 
           {/* Tagline */}

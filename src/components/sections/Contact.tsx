@@ -62,9 +62,9 @@ export default function Contact() {
 
             <div className="space-y-5">
               {[
-                { icon: Mail, label: 'Email', value: 'hello@janedoe.com' },
-                { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567' },
-                { icon: MapPin, label: 'Location', value: 'New York, NY (Remote Available)' },
+                { icon: Mail, label: 'Email', value: 'hello@riyapatel.in' },
+                { icon: Phone, label: 'Phone', value: '+91 98765 43210' },
+                { icon: MapPin, label: 'Location', value: 'Mumbai, India (Remote Available)' },
               ].map(({ icon: Icon, label, value }) => (
                 <div key={label} className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
