@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const footerLinks = {
-  Services: ['SEO Optimization', 'PPC Advertising', 'Content Marketing', 'Social Media', 'Email Campaigns', 'Analytics'],
-  Company: ['About', 'Portfolio', 'Process', 'Pricing', 'FAQ', 'Blog'],
-  Social: ['LinkedIn', 'Twitter / X', 'Instagram', 'Dribbble', 'YouTube'],
+  Services: ['UGC for Local Brands', 'UGC for D2C Brands', 'Social Media Management', 'Website Design', 'Meta Ads', 'PR & Influencer'],
+  Company: ['About', 'Our Work', 'Pricing', 'FAQ', 'Blog'],
+  Social: ['Instagram', 'YouTube', 'LinkedIn', 'Twitter / X'],
 };
 
 export default function Footer() {
@@ -20,30 +21,21 @@ export default function Footer() {
     }
   };
 
-  const handleNav = (href: string) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <footer className="bg-dark text-white" aria-label="Site footer">
       <div className="container-custom py-16">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 mb-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
-            <a
-              href="#home"
-              onClick={(e) => { e.preventDefault(); handleNav('#home'); }}
-              className="font-display text-2xl font-bold text-white mb-4 inline-block"
-            >
-              Riya<span className="text-primary">.</span>Patel
-            </a>
+            <Link to="/" className="font-display text-2xl font-bold text-white mb-4 inline-block">
+              Creator<span className="text-primary">Box</span>
+            </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs mt-3 mb-6">
-              Digital Marketing Strategist helping brands grow through data-driven strategies. Based in India, available worldwide.
+              Authentic UGC content for local and online brands across India. Built for visibility, trust, and performance.
             </p>
             <div className="flex items-center gap-1 text-white/50 text-xs">
               <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-              Available for new projects
+              Accepting new brands
             </div>
           </div>
 
@@ -54,10 +46,7 @@ export default function Footer() {
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link}>
-                    <a
-                      href="#"
-                      className="text-sm text-white/60 hover:text-white transition-colors"
-                    >
+                    <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
                       {link}
                     </a>
                   </li>
@@ -72,7 +61,7 @@ export default function Footer() {
           <div className="grid md:grid-cols-2 gap-6 items-center">
             <div>
               <h4 className="font-display text-xl font-bold text-white mb-1">Stay in the loop</h4>
-              <p className="text-sm text-white/50">Monthly marketing tips, case studies, and growth strategies. No spam.</p>
+              <p className="text-sm text-white/50">UGC tips, brand growth strategies, and creator updates. No spam.</p>
             </div>
             <form onSubmit={handleSubscribe} className="flex gap-2">
               {subscribed ? (
@@ -109,10 +98,10 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/30">
-            © {new Date().getFullYear()} Riya Patel. All rights reserved.
+            © {new Date().getFullYear()} CreatorBox. All rights reserved.
           </p>
           <div className="flex gap-6">
-            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
+            {['Privacy Policy', 'Terms of Service'].map((link) => (
               <a key={link} href="#" className="text-xs text-white/30 hover:text-white/60 transition-colors">
                 {link}
               </a>

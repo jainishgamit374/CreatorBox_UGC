@@ -4,28 +4,28 @@ import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "Jane completely transformed our digital presence. Our organic traffic tripled in just 6 months, and the ROI has been phenomenal. She's not just a marketer — she's a true growth partner.",
-    name: 'Sarah Chen',
-    company: 'CEO, TechVista SaaS',
-    initials: 'SC',
+    quote: "CreatorBox sent a creator to our café and the reel got us 50K views in a week. We started getting walk-ins mentioning the Instagram post. Incredible ROI for what we paid.",
+    name: 'Ankit Sharma',
+    company: 'Owner, Brew & Bites Café, Mumbai',
+    initials: 'AS',
   },
   {
-    quote: "The PPC campaigns Jane built for us were incredibly effective. We saw a 4x return on ad spend within the first quarter. Her analytical approach and creativity are unmatched.",
-    name: 'Marcus Williams',
-    company: 'Head of Growth, Elevate Commerce',
-    initials: 'MW',
+    quote: "We needed UGC for our skincare launch ads. CreatorBox delivered 6 ad-ready videos in 10 days. Our CTR improved by 2.3x compared to our studio-shot ads.",
+    name: 'Priya Mehta',
+    company: 'Founder, GlowNest Skincare',
+    initials: 'PM',
   },
   {
-    quote: "Working with Jane felt like having an entire marketing department. She took us from zero to 50,000 monthly organic visitors and the leads just keep coming in.",
-    name: 'Priya Kapoor',
-    company: 'Founder, NexGen Analytics',
-    initials: 'PK',
+    quote: "As a gym owner, I didn't know where to start with social media. Their iGC creator captured real workouts and transformations. Our Instagram grew from 200 to 3,000 followers in a month.",
+    name: 'Rahul Verma',
+    company: 'FitZone Gym, Pune',
+    initials: 'RV',
   },
   {
-    quote: "Jane's content strategy turned our blog into a lead generation machine. 250% more qualified leads in under a year. The investment paid for itself many times over.",
-    name: 'David Rodriguez',
-    company: 'Marketing Director, Brightline B2B',
-    initials: 'DR',
+    quote: "The quality of UGC we received for our fashion brand was outstanding. It felt authentic, relatable, and performed way better than influencer content in our Meta ads.",
+    name: 'Sneha Kapoor',
+    company: 'Co-founder, ThreadCraft Fashion',
+    initials: 'SK',
   },
 ];
 
@@ -47,7 +47,6 @@ export default function Testimonials() {
   return (
     <section className="section-padding bg-foreground" aria-label="Testimonials">
       <div className="container-custom">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -60,12 +59,11 @@ export default function Testimonials() {
             <span className="text-sm font-medium text-primary uppercase tracking-widest">Testimonials</span>
           </div>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
-            What clients{' '}
+            What brands{' '}
             <span className="italic text-primary">say</span>
           </h2>
         </motion.div>
 
-        {/* Carousel */}
         <div
           className="relative max-w-3xl"
           onMouseEnter={() => setIsPaused(true)}
@@ -100,9 +98,7 @@ export default function Testimonials() {
             </AnimatePresence>
           </div>
 
-          {/* Controls */}
           <div className="flex items-center gap-4 mt-10">
-            {/* Dots */}
             <div className="flex gap-2">
               {testimonials.map((_, i) => (
                 <button
@@ -115,21 +111,11 @@ export default function Testimonials() {
                 />
               ))}
             </div>
-
-            {/* Arrows */}
             <div className="flex gap-2 ml-auto">
-              <button
-                onClick={prev}
-                className="w-10 h-10 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors flex items-center justify-center"
-                aria-label="Previous testimonial"
-              >
+              <button onClick={prev} className="w-10 h-10 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors flex items-center justify-center" aria-label="Previous">
                 <ChevronLeft size={18} />
               </button>
-              <button
-                onClick={next}
-                className="w-10 h-10 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors flex items-center justify-center"
-                aria-label="Next testimonial"
-              >
+              <button onClick={next} className="w-10 h-10 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors flex items-center justify-center" aria-label="Next">
                 <ChevronRight size={18} />
               </button>
             </div>

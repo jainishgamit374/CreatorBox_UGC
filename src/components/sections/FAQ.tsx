@@ -8,36 +8,36 @@ import {
 
 const faqs = [
   {
-    q: 'How long does it take to see results from SEO?',
-    a: 'SEO is a long-term investment. Most clients start seeing measurable improvements in organic traffic and rankings within 3-6 months. However, the exact timeline depends on your current site authority, competition level, and the scope of work involved.',
+    q: 'What is UGC and why does my brand need it?',
+    a: 'UGC (User Generated Content) is authentic content created by real people — not polished studio ads. It builds trust, improves engagement, and performs better in paid campaigns because audiences relate to it.',
   },
   {
-    q: 'What is your typical PPC campaign setup process?',
-    a: 'I begin with a thorough audit of your goals, target audience, and competitors. From there I build the campaign architecture, write compelling ad copy, set up conversion tracking, and launch. The first 30 days are dedicated to data collection and optimization.',
+    q: 'What is iGC content?',
+    a: 'iGC stands for In-house / Influencer Generated Content. Our iGC creators visit your physical store or location and create authentic content from the real customer experience.',
   },
   {
-    q: 'Do you require long-term contracts?',
-    a: 'No! All plans are month-to-month with no long-term commitment required. That said, marketing works best as a sustained effort, and I encourage clients to commit to at least 3-6 months to see meaningful results.',
+    q: 'How much does UGC cost?',
+    a: 'Our UGC plans start from ₹1,999. We offer both monthly packages and one-time options depending on your needs. Check our pricing page for detailed plans.',
   },
   {
-    q: 'What industries do you specialize in?',
-    a: "I've worked across 50+ industries including SaaS, e-commerce, professional services, healthcare, real estate, and more. My methodology adapts to any industry — what matters most is understanding your specific audience and competitive landscape.",
+    q: 'How long does delivery take?',
+    a: 'For local brands: 7–12 days from the store visit. For online/D2C brands: 7–14 days from when we assign a creator. Rush delivery options available.',
   },
   {
-    q: 'How do you measure and report campaign performance?',
-    a: 'I set up custom dashboards tracking the KPIs that matter to your business — traffic, conversions, cost per acquisition, ROAS, and more. You receive detailed monthly reports (weekly on Growth/Enterprise plans) with insights and clear next steps.',
+    q: 'Do I get usage rights for the content?',
+    a: 'Yes! Full usage rights are included with all our plans. You can use the content for ads, social media, website, and any marketing purpose.',
   },
   {
-    q: 'Can you work with my existing marketing team?',
-    a: 'Absolutely. Many of my clients have in-house marketing teams and I slot in as a specialist or strategic advisor. I collaborate closely with your team to ensure alignment and share knowledge so your team grows along the way.',
+    q: 'Do creators need to have a lot of followers?',
+    a: 'No. UGC is about authentic content quality, not follower counts. Our creators are trained for content creation, not influencing. That said, our iGC creators often have decent followings as a bonus.',
   },
   {
-    q: 'What budget do you recommend for PPC advertising?',
-    a: "Ad spend is separate from my management fee. For Google Ads, I recommend a minimum of $1,500-$3,000/month to gather meaningful data. For social ads, $1,000+/month is a good starting point. I'll give you a tailored recommendation based on your goals.",
+    q: 'Can UGC guarantee sales?',
+    a: 'UGC improves trust, engagement, and ad performance — but sales depend on your complete funnel (ads, offer, landing page, etc). We help with the content layer. Paid ads can accelerate results.',
   },
   {
-    q: 'How do I get started?',
-    a: "Simple — just reach out via the contact form below or book a free 30-minute strategy call. We'll discuss your goals, challenges, and I'll outline exactly how I can help you grow.",
+    q: 'What types of businesses do you work with?',
+    a: 'We work with cafés, restaurants, salons, gyms, clinics, real estate, coaching centers (local brands), and skincare, fashion, electronics, apps, courses, and SaaS (online brands).',
   },
 ];
 
@@ -46,7 +46,6 @@ export default function FAQ() {
     <section className="section-padding bg-white" aria-label="Frequently asked questions">
       <div className="container-custom">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Left: Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -63,7 +62,7 @@ export default function FAQ() {
               <span className="text-gradient italic">questions?</span>
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              Here are the most common questions I get from potential clients. Don't see yours? Just reach out directly.
+              Everything you need to know about UGC and working with CreatorBox.
             </p>
             <a
               href="#contact"
@@ -73,11 +72,10 @@ export default function FAQ() {
               }}
               className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:underline"
             >
-              Ask me directly →
+              Ask us directly →
             </a>
           </motion.div>
 
-          {/* Right: Accordion */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

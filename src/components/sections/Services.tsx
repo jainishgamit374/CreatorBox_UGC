@@ -1,43 +1,43 @@
 import { motion } from 'framer-motion';
 import {
-  Search, MousePointerClick, FileText, Share2, Mail, BarChart3
+  Share2, Globe, Megaphone, BarChart3, Palette, Video
 } from 'lucide-react';
 
 const services = [
   {
-    icon: Search,
-    title: 'SEO Optimization',
-    description: 'Dominate search rankings with data-driven SEO strategies that drive organic traffic and sustainable growth.',
+    icon: Video,
+    title: 'UGC Video Production',
+    description: 'High-quality UGC reels and videos tailored for Instagram, YouTube Shorts, and paid ad campaigns.',
     color: 'bg-primary/10 text-primary',
-  },
-  {
-    icon: MousePointerClick,
-    title: 'PPC Advertising',
-    description: 'Maximize ROI with precision-targeted pay-per-click campaigns across Google, Meta, and beyond.',
-    color: 'bg-secondary/10 text-secondary',
-  },
-  {
-    icon: FileText,
-    title: 'Content Marketing',
-    description: 'Craft compelling content that resonates with your audience, builds authority, and converts readers into customers.',
-    color: 'bg-accent/10 text-accent',
   },
   {
     icon: Share2,
-    title: 'Social Media',
-    description: 'Build a thriving social presence with strategic content, community management, and paid social campaigns.',
-    color: 'bg-primary/10 text-primary',
-  },
-  {
-    icon: Mail,
-    title: 'Email Campaigns',
-    description: 'Design high-converting email sequences that nurture leads, retain customers, and drive revenue.',
+    title: 'Social Media Management',
+    description: 'End-to-end social media strategy, content calendar, and community management for your brand.',
     color: 'bg-secondary/10 text-secondary',
   },
   {
+    icon: Globe,
+    title: 'Website Design',
+    description: 'Modern, conversion-optimized websites that showcase your brand and drive customer action.',
+    color: 'bg-accent/10 text-accent',
+  },
+  {
+    icon: Megaphone,
+    title: 'PR & Influencer Marketing',
+    description: 'Strategic influencer collaborations and PR outreach to amplify your brand reach and credibility.',
+    color: 'bg-primary/10 text-primary',
+  },
+  {
     icon: BarChart3,
-    title: 'Analytics & Reporting',
-    description: 'Turn data into actionable insights with comprehensive analytics dashboards and performance reports.',
+    title: 'Meta Ads Management',
+    description: 'Data-driven Facebook and Instagram ad campaigns optimized for maximum ROAS and conversions.',
+    color: 'bg-secondary/10 text-secondary',
+  },
+  {
+    icon: Palette,
+    title: 'Brand Strategy',
+    description: 'Complete brand identity and positioning strategy to stand out in a crowded market.',
     color: 'bg-accent/10 text-accent',
   },
 ];
@@ -56,14 +56,14 @@ export default function Services() {
         >
           <div className="flex items-center gap-3 mb-4">
             <span className="w-8 h-0.5 bg-primary" />
-            <span className="text-sm font-medium text-primary uppercase tracking-widest">Services</span>
+            <span className="text-sm font-medium text-primary uppercase tracking-widest">More Services</span>
           </div>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-            What I can do for{' '}
-            <span className="text-gradient italic">you</span>
+            Beyond{' '}
+            <span className="text-gradient italic">UGC</span>
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Comprehensive digital marketing solutions tailored to your business goals and growth ambitions.
+            We offer a full suite of digital marketing services to help your brand grow online and offline.
           </p>
         </motion.div>
 
