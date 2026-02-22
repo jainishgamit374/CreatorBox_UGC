@@ -1,12 +1,8 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, MessageCircle } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Hero() {
-  const handleScroll = (href: string) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section
       id="home"
@@ -38,7 +34,7 @@ export default function Hero() {
           >
             <span className="flex h-2 w-2 rounded-full bg-secondary animate-pulse" />
             <span className="text-sm font-medium text-muted-foreground tracking-widest uppercase">
-              Available for new projects
+              UGC Agency for Indian Brands
             </span>
           </motion.div>
 
@@ -47,11 +43,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35, ease: 'easeOut' }}
-            className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-foreground leading-[0.9] tracking-tight mb-6"
+            className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[0.95] tracking-tight mb-6"
           >
-            Riya
+            Authentic UGC for
             <br />
-            <span className="text-gradient italic">Patel</span>
+            <span className="text-gradient italic">Local & Online Brands</span>
           </motion.h1>
 
           {/* Tagline */}
@@ -59,13 +55,10 @@ export default function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
-            className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed mb-10 font-light"
+            className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-10 font-light"
           >
-            Digital Marketing Strategist · Growth Hacker · Brand Storyteller
-            <br />
-            <span className="text-foreground/80 font-medium">
-              Turning ideas into impactful digital experiences.
-            </span>
+            We create high-quality UGC videos for cafés, shops, startups, and D2C brands
+            across India — built for <span className="text-foreground/80 font-medium">visibility, trust, and performance.</span>
           </motion.p>
 
           {/* CTA Buttons */}
@@ -75,24 +68,26 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.65, ease: 'easeOut' }}
             className="flex flex-wrap gap-4"
           >
-            <motion.button
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => handleScroll('#portfolio')}
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full font-semibold text-base hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20"
-            >
-              View My Work
-              <ArrowRight size={18} />
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => handleScroll('#contact')}
-              className="inline-flex items-center gap-2 border-2 border-foreground text-foreground px-8 py-4 rounded-full font-semibold text-base hover:bg-foreground hover:text-background transition-all duration-300"
-            >
-              <MessageCircle size={18} />
-              Let's Talk
-            </motion.button>
+            <Link to="/local-brands">
+              <motion.span
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full font-semibold text-base hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20"
+              >
+                For Local Brands
+                <ArrowRight size={18} />
+              </motion.span>
+            </Link>
+            <Link to="/online-brands">
+              <motion.span
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-2 border-2 border-foreground text-foreground px-8 py-4 rounded-full font-semibold text-base hover:bg-foreground hover:text-background transition-all duration-300"
+              >
+                For Online / D2C Brands
+                <ArrowRight size={18} />
+              </motion.span>
+            </Link>
           </motion.div>
 
           {/* Social proof row */}
@@ -103,18 +98,18 @@ export default function Hero() {
             className="flex items-center gap-6 mt-16 pt-8 border-t border-border"
           >
             <div className="flex -space-x-3">
-              {['A', 'B', 'C', 'D'].map((letter) => (
+              {['🎬', '📸', '🎥', '✨'].map((emoji, i) => (
                 <div
-                  key={letter}
-                  className="w-10 h-10 rounded-full border-2 border-white bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-xs font-bold text-foreground"
+                  key={i}
+                  className="w-10 h-10 rounded-full border-2 border-white bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-lg"
                 >
-                  {letter}
+                  {emoji}
                 </div>
               ))}
             </div>
             <div>
-              <div className="text-sm font-semibold text-foreground">150+ Happy Clients</div>
-              <div className="text-xs text-muted-foreground">⭐⭐⭐⭐⭐ 4.9/5 average rating</div>
+              <div className="text-sm font-semibold text-foreground">100+ Brands Trust Us</div>
+              <div className="text-xs text-muted-foreground">Local stores · D2C brands · Startups across India</div>
             </div>
           </motion.div>
         </div>

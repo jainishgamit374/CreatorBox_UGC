@@ -1,16 +1,15 @@
-import { Users, TrendingUp, Star, Award } from 'lucide-react';
+import { Video, Users, Star, TrendingUp } from 'lucide-react';
 import { useCountUp } from '@/hooks/useCountUp';
-import { useInView } from '@/hooks/useInView';
 import { motion } from 'framer-motion';
 
 const stats = [
-  { icon: Users, value: 150, suffix: '+', label: 'Happy Clients', color: 'text-primary' },
-  { icon: TrendingUp, value: 2, prefix: '$', suffix: 'M+', label: 'Revenue Generated', color: 'text-secondary' },
-  { icon: Star, value: 98, suffix: '%', label: 'Satisfaction Rate', color: 'text-accent' },
-  { icon: Award, value: 7, suffix: '+', label: 'Years Experience', color: 'text-primary' },
+  { icon: Video, value: 500, suffix: '+', label: 'UGC Videos Delivered', color: 'text-primary' },
+  { icon: Users, value: 100, suffix: '+', label: 'Brands Served', color: 'text-secondary' },
+  { icon: Star, value: 50, suffix: '+', label: 'iGC Creators', color: 'text-accent' },
+  { icon: TrendingUp, value: 3, suffix: 'x', label: 'Avg. Engagement Boost', color: 'text-primary' },
 ];
 
-function StatCard({ icon: Icon, value, suffix, prefix, label, color, index }: typeof stats[0] & { index: number }) {
+function StatCard({ icon: Icon, value, suffix, label, color, index }: typeof stats[0] & { index: number }) {
   const { count, ref } = useCountUp(value, 2000);
 
   return (
@@ -27,7 +26,7 @@ function StatCard({ icon: Icon, value, suffix, prefix, label, color, index }: ty
         <Icon size={22} />
       </div>
       <div className={`text-4xl md:text-5xl font-bold font-display mb-2 ${color}`}>
-        {prefix}{count}{suffix}
+        {count}{suffix}
       </div>
       <div className="text-sm text-muted-foreground font-medium">{label}</div>
     </motion.div>

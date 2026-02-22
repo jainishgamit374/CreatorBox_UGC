@@ -12,14 +12,12 @@ const schema = z.object({
   email: z.string().email('Please enter a valid email'),
   phone: z.string().optional(),
   service: z.string().min(1, 'Please select a service'),
-  budget: z.string().min(1, 'Please select a budget'),
   message: z.string().min(10, 'Message must be at least 10 characters'),
 });
 
 type FormData = z.infer<typeof schema>;
 
-const services = ['SEO Optimization', 'PPC Advertising', 'Content Marketing', 'Social Media', 'Email Campaigns', 'Analytics & Reporting', 'Full-Service Package'];
-const budgets = ['$500 - $1,000/mo', '$1,000 - $2,500/mo', '$2,500 - $5,000/mo', '$5,000+/mo'];
+const services = ['UGC for Local Brand', 'UGC for D2C / Online Brand', 'Social Media Management', 'Website Design', 'Meta Ads', 'PR & Influencer Marketing', 'Full Package'];
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -31,7 +29,6 @@ export default function Contact() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (_data: FormData) => {
-    // Simulate API call
     await new Promise((r) => setTimeout(r, 1000));
     setSubmitted(true);
     reset();
@@ -53,18 +50,18 @@ export default function Contact() {
               <span className="text-sm font-medium text-primary uppercase tracking-widest">Contact</span>
             </div>
             <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Let's build something{' '}
-              <span className="text-gradient italic">great</span>
+              Let's create{' '}
+              <span className="text-gradient italic">together</span>
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-10">
-              Ready to grow your business? Tell me about your project and I'll get back to you within 24 hours with a tailored proposal.
+              Ready to get authentic UGC for your brand? Tell us about your project and we'll get back to you within 24 hours.
             </p>
 
             <div className="space-y-5">
               {[
-                { icon: Mail, label: 'Email', value: 'hello@riyapatel.in' },
                 { icon: Phone, label: 'Phone', value: '+91 98765 43210' },
-                { icon: MapPin, label: 'Location', value: 'Mumbai, India (Remote Available)' },
+                { icon: Mail, label: 'Instagram', value: '@creatorbox.in' },
+                { icon: Mail, label: 'Email', value: 'hello@creatorbox.in' },
               ].map(({ icon: Icon, label, value }) => (
                 <div key={label} className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -76,22 +73,6 @@ export default function Contact() {
                   </div>
                 </div>
               ))}
-            </div>
-
-            {/* Social */}
-            <div className="mt-8 pt-8 border-t border-border">
-              <p className="text-sm font-medium text-foreground mb-4">Connect on social</p>
-              <div className="flex gap-3">
-                {['LinkedIn', 'Twitter', 'Instagram', 'Dribbble'].map((platform) => (
-                  <a
-                    key={platform}
-                    href="#"
-                    className="px-4 py-2 text-xs font-medium bg-white border border-border rounded-full hover:border-primary/40 hover:text-primary transition-colors"
-                  >
-                    {platform}
-                  </a>
-                ))}
-              </div>
             </div>
           </motion.div>
 
@@ -121,87 +102,52 @@ export default function Contact() {
                     <CheckCircle2 size={40} className="text-secondary" />
                   </motion.div>
                   <h3 className="font-display text-2xl font-bold text-foreground mb-2">Message Sent!</h3>
-                  <p className="text-muted-foreground mb-6">
-                    Thanks for reaching out. I'll get back to you within 24 hours.
-                  </p>
-                  <button
-                    onClick={() => setSubmitted(false)}
-                    className="text-sm text-primary font-medium hover:underline"
-                  >
+                  <p className="text-muted-foreground mb-6">We'll get back to you within 24 hours.</p>
+                  <button onClick={() => setSubmitted(false)} className="text-sm text-primary font-medium hover:underline">
                     Send another message
                   </button>
                 </motion.div>
               ) : (
-                <motion.form
-                  key="form"
-                  onSubmit={handleSubmit(onSubmit)}
-                  className="space-y-5"
-                >
+                <motion.form key="form" onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label className="text-xs font-medium text-foreground mb-1.5 block">Full Name *</label>
-                      <Input
-                        {...register('name')}
-                        placeholder="Jane Smith"
-                        className={errors.name ? 'border-destructive' : ''}
-                      />
+                      <Input {...register('name')} placeholder="Your name" className={errors.name ? 'border-destructive' : ''} />
                       {errors.name && <p className="text-destructive text-xs mt-1">{errors.name.message}</p>}
                     </div>
                     <div>
                       <label className="text-xs font-medium text-foreground mb-1.5 block">Email *</label>
-                      <Input
-                        {...register('email')}
-                        type="email"
-                        placeholder="jane@company.com"
-                        className={errors.email ? 'border-destructive' : ''}
-                      />
+                      <Input {...register('email')} type="email" placeholder="you@email.com" className={errors.email ? 'border-destructive' : ''} />
                       {errors.email && <p className="text-destructive text-xs mt-1">{errors.email.message}</p>}
                     </div>
                   </div>
 
                   <div>
                     <label className="text-xs font-medium text-foreground mb-1.5 block">Phone (optional)</label>
-                    <Input {...register('phone')} placeholder="+1 (555) 000-0000" />
+                    <Input {...register('phone')} placeholder="+91 98765 43210" />
                   </div>
 
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-xs font-medium text-foreground mb-1.5 block">Service *</label>
-                      <select
-                        {...register('service')}
-                        className={`w-full h-10 rounded-md border bg-background px-3 py-2 text-sm text-foreground ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
-                          errors.service ? 'border-destructive' : 'border-input'
-                        }`}
-                      >
-                        <option value="">Select service</option>
-                        {services.map((s) => (
-                          <option key={s} value={s}>{s}</option>
-                        ))}
-                      </select>
-                      {errors.service && <p className="text-destructive text-xs mt-1">{errors.service.message}</p>}
-                    </div>
-                    <div>
-                      <label className="text-xs font-medium text-foreground mb-1.5 block">Budget *</label>
-                      <select
-                        {...register('budget')}
-                        className={`w-full h-10 rounded-md border bg-background px-3 py-2 text-sm text-foreground ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
-                          errors.budget ? 'border-destructive' : 'border-input'
-                        }`}
-                      >
-                        <option value="">Select budget</option>
-                        {budgets.map((b) => (
-                          <option key={b} value={b}>{b}</option>
-                        ))}
-                      </select>
-                      {errors.budget && <p className="text-destructive text-xs mt-1">{errors.budget.message}</p>}
-                    </div>
+                  <div>
+                    <label className="text-xs font-medium text-foreground mb-1.5 block">Service *</label>
+                    <select
+                      {...register('service')}
+                      className={`w-full h-10 rounded-md border bg-background px-3 py-2 text-sm text-foreground ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                        errors.service ? 'border-destructive' : 'border-input'
+                      }`}
+                    >
+                      <option value="">Select service</option>
+                      {services.map((s) => (
+                        <option key={s} value={s}>{s}</option>
+                      ))}
+                    </select>
+                    {errors.service && <p className="text-destructive text-xs mt-1">{errors.service.message}</p>}
                   </div>
 
                   <div>
                     <label className="text-xs font-medium text-foreground mb-1.5 block">Message *</label>
                     <Textarea
                       {...register('message')}
-                      placeholder="Tell me about your project, goals, and timeline..."
+                      placeholder="Tell us about your brand and what you need..."
                       className={`min-h-[120px] ${errors.message ? 'border-destructive' : ''}`}
                     />
                     {errors.message && <p className="text-destructive text-xs mt-1">{errors.message.message}</p>}
@@ -212,7 +158,7 @@ export default function Contact() {
                     whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground py-4 rounded-full font-semibold text-sm hover:bg-primary/90 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:-translate-y-0.5"
+                    className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground py-4 rounded-full font-semibold text-sm hover:bg-primary/90 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-primary/20"
                   >
                     {isSubmitting ? (
                       <>
