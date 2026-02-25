@@ -5,7 +5,7 @@ const rows = [
   { feature: 'Local + Online Focus', us: true, others: 'Mostly Online Only' },
   { feature: 'iGC + Professional Creators', us: true, others: 'Freelancers Only' },
   { feature: 'Store Visits Available', us: true, others: 'Rare' },
-  { feature: 'Pricing from ₹1,999', us: true, others: '₹5,000+ per video' },
+  { feature: 'Pricing from ₹999', us: true, others: '₹5,000+ per video' },
   { feature: 'Usage Rights Included', us: true, others: 'Limited' },
   { feature: 'No Follower Requirement', us: true, others: 'Follower Requirement' },
   { feature: 'Clear Deliverables', us: true, others: 'Hidden Conditions' },
