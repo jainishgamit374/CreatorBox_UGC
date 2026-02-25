@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Search, Globe, Video, Zap, ShieldCheck, ArrowRight } from 'lucide-react';
 import { useLenis } from '@/hooks/useUtils';
 import Navbar from '@/components/sections/Navbar';
 import ProcessTimeline from '@/components/sections/ProcessTimeline';
+import HighTicketSaaS from '@/components/sections/HighTicketSaaS';
 import Testimonials from '@/components/sections/Testimonials';
 import Contact from '@/components/sections/Contact';
 import Footer from '@/components/sections/Footer';
@@ -36,7 +39,30 @@ const ugcBenefits = [
 
 export default function OnlineBrands() {
   const [search, setSearch] = useState('');
+  const contentRef = useRef<HTMLDivElement>(null);
+  const benefitsRef = useRef<HTMLDivElement>(null);
   useLenis();
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray<HTMLElement>('.content-card').forEach((card, i) => {
+        gsap.from(card, {
+          y: 60, opacity: 0, duration: 0.7, delay: i * 0.12,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: contentRef.current, start: 'top 78%' },
+        });
+      });
+      gsap.utils.toArray<HTMLElement>('.benefit-card').forEach((card, i) => {
+        gsap.from(card, {
+          y: 50, opacity: 0, duration: 0.6, delay: i * 0.12,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: benefitsRef.current, start: 'top 80%' },
+        });
+      });
+    });
+    return () => ctx.revert();
+  }, []);
 
   const filteredNiches = niches.filter((n) =>
     n.toLowerCase().includes(search.toLowerCase())
@@ -117,16 +143,13 @@ export default function OnlineBrands() {
               </h2>
             </motion.div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              {contentTypes.map((type, i) => (
+            <div ref={contentRef} className="grid md:grid-cols-3 gap-6">
+              {contentTypes.map((type) => (
                 <motion.div
                   key={type.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
                   whileHover={{ y: -6 }}
-                  className="p-6 bg-light rounded-2xl border border-border hover:border-secondary/30 hover:shadow-lg transition-all duration-300"
+                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                  className="content-card p-6 bg-light rounded-2xl border border-border hover:border-secondary/30 hover:shadow-lg transition-all duration-300"
                 >
                   <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center mb-4">
                     <type.icon size={22} className="text-secondary" />
@@ -158,20 +181,16 @@ export default function OnlineBrands() {
               </h2>
             </motion.div>
 
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
-              {ugcBenefits.map((benefit, i) => (
-                <motion.div
+            <div ref={benefitsRef} className="grid md:grid-cols-3 gap-6 mb-8">
+              {ugcBenefits.map((benefit) => (
+                <div
                   key={benefit.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="p-6 bg-white rounded-2xl border border-border"
+                  className="benefit-card p-6 bg-white rounded-2xl border border-border"
                 >
                   <ShieldCheck size={24} className="text-secondary mb-4" />
                   <h3 className="text-lg font-semibold text-foreground mb-2">{benefit.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{benefit.description}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
 
@@ -259,6 +278,7 @@ export default function OnlineBrands() {
         </section>
 
         <ProcessTimeline variant="online" />
+        <HighTicketSaaS />
         <Testimonials />
         <Contact />
       </main>

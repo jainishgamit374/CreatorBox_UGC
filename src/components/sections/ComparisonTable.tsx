@@ -1,5 +1,10 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Check, X } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const rows = [
   { feature: 'Local + Online Focus', us: true, others: 'Mostly Online Only' },
@@ -12,6 +17,27 @@ const rows = [
 ];
 
 export default function ComparisonTable() {
+  const tableRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray<HTMLElement>('.comparison-row').forEach((row, i) => {
+        gsap.from(row, {
+          x: -40,
+          opacity: 0,
+          duration: 0.5,
+          delay: i * 0.08,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: tableRef.current,
+            start: 'top 75%',
+          },
+        });
+      });
+    }, tableRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section className="section-padding bg-white" aria-label="Comparison">
       <div className="container-custom">
@@ -33,13 +59,7 @@ export default function ComparisonTable() {
           </h2>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-3xl mx-auto"
-        >
+        <div ref={tableRef} className="max-w-3xl mx-auto">
           <div className="overflow-hidden rounded-2xl border border-border">
             {/* Header */}
             <div className="grid grid-cols-3 bg-muted">
@@ -51,7 +71,7 @@ export default function ComparisonTable() {
             {rows.map((row, i) => (
               <div
                 key={row.feature}
-                className={`grid grid-cols-3 ${i % 2 === 0 ? 'bg-white' : 'bg-muted/50'} border-t border-border`}
+                className={`comparison-row grid grid-cols-3 ${i % 2 === 0 ? 'bg-white' : 'bg-muted/50'} border-t border-border`}
               >
                 <div className="p-4 text-sm text-foreground font-medium">{row.feature}</div>
                 <div className="p-4 flex items-center justify-center">
@@ -66,7 +86,7 @@ export default function ComparisonTable() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

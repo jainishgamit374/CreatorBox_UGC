@@ -1,5 +1,10 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Camera } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const btsItems = [
   { label: 'Café Shoot', gradient: 'from-primary/20 to-accent/10' },
@@ -11,6 +16,28 @@ const btsItems = [
 ];
 
 export default function BehindTheScenes() {
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray<HTMLElement>('.bts-card').forEach((card, i) => {
+        gsap.from(card, {
+          y: 60,
+          opacity: 0,
+          scale: 0.92,
+          duration: 0.7,
+          delay: i * 0.1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: 'top 78%',
+          },
+        });
+      });
+    }, gridRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section className="section-padding bg-light" aria-label="Behind the scenes">
       <div className="container-custom">
@@ -34,19 +61,16 @@ export default function BehindTheScenes() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {btsItems.map((item, i) => (
+        <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {btsItems.map((item) => (
             <motion.div
               key={item.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              whileHover={{ scale: 1.03 }}
-              className={`relative aspect-square rounded-2xl bg-gradient-to-br ${item.gradient} border border-border overflow-hidden group cursor-default`}
+              whileHover={{ scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+              className={`bts-card relative aspect-square rounded-2xl bg-gradient-to-br ${item.gradient} border border-border overflow-hidden group cursor-default`}
             >
               <div className="absolute inset-0 flex items-center justify-center">
-                <Camera size={32} className="text-foreground/20 group-hover:text-primary/40 transition-colors" />
+                <Camera size={32} className="text-foreground/20 group-hover:text-primary/40 transition-colors duration-300" />
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-foreground/10 to-transparent">
                 <span className="text-sm font-semibold text-foreground/70">{item.label}</span>

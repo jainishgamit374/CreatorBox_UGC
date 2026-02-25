@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useLenis } from '@/hooks/useUtils';
 import Navbar from '@/components/sections/Navbar';
 import Hero from '@/components/sections/Hero';
@@ -6,6 +5,7 @@ import Stats from '@/components/sections/Stats';
 import Services from '@/components/sections/Services';
 import ProcessTimeline from '@/components/sections/ProcessTimeline';
 import ComparisonTable from '@/components/sections/ComparisonTable';
+import HighTicketSaaS from '@/components/sections/HighTicketSaaS';
 import Testimonials from '@/components/sections/Testimonials';
 import BehindTheScenes from '@/components/sections/BehindTheScenes';
 import FAQ from '@/components/sections/FAQ';
@@ -24,6 +24,7 @@ const Index = () => {
         <Services />
         <ProcessTimeline variant="local" />
         <ComparisonTable />
+        <HighTicketSaaS />
         <Testimonials />
         <BehindTheScenes />
         <FAQ />
