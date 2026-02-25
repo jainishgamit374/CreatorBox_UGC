@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Search, MapPin, Eye, Users, TrendingUp, Calendar, ArrowRight } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Search, MapPin, Eye, Users, TrendingUp, ArrowRight } from 'lucide-react';
 import { useLenis } from '@/hooks/useUtils';
 import Navbar from '@/components/sections/Navbar';
 import ProcessTimeline from '@/components/sections/ProcessTimeline';
@@ -27,7 +29,30 @@ const expectedResults = [
 
 export default function LocalBrands() {
   const [search, setSearch] = useState('');
+  const workGridRef = useRef<HTMLDivElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
   useLenis();
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray<HTMLElement>('.work-card').forEach((card, i) => {
+        gsap.from(card, {
+          y: 60, opacity: 0, scale: 0.95, duration: 0.7, delay: i * 0.1,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: workGridRef.current, start: 'top 78%' },
+        });
+      });
+      gsap.utils.toArray<HTMLElement>('.result-card').forEach((card, i) => {
+        gsap.from(card, {
+          y: 50, opacity: 0, duration: 0.6, delay: i * 0.12,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: resultsRef.current, start: 'top 80%' },
+        });
+      });
+    });
+    return () => ctx.revert();
+  }, []);
 
   const filteredCategories = categories.filter((c) =>
     c.toLowerCase().includes(search.toLowerCase())
@@ -111,16 +136,13 @@ export default function LocalBrands() {
               </p>
             </motion.div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div ref={workGridRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {bestWork.map((item, i) => (
                 <motion.div
                   key={item.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.08 }}
                   whileHover={{ y: -4 }}
-                  className="group relative aspect-[9/16] max-h-[360px] rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/5 border border-border overflow-hidden cursor-default"
+                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                  className="work-card group relative aspect-[9/16] max-h-[360px] rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/5 border border-border overflow-hidden cursor-default"
                 >
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-4xl">▶</div>
@@ -158,15 +180,11 @@ export default function LocalBrands() {
               </h2>
             </motion.div>
 
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
-              {expectedResults.map((item, i) => (
-                <motion.div
+            <div ref={resultsRef} className="grid md:grid-cols-3 gap-6 mb-8">
+              {expectedResults.map((item) => (
+                <div
                   key={item.week}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="p-6 bg-white rounded-2xl border border-border"
+                  className="result-card p-6 bg-white rounded-2xl border border-border"
                 >
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                     <item.icon size={20} className="text-primary" />
@@ -174,7 +192,7 @@ export default function LocalBrands() {
                   <span className="text-xs font-bold text-primary uppercase tracking-widest">{item.week}</span>
                   <h3 className="text-lg font-semibold text-foreground mt-1 mb-2">{item.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
 
