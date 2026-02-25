@@ -237,7 +237,7 @@ export default function OnlineBrands() {
             >
               <div className="text-center md:text-left">
                 <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-2">
-                  UGC plans start from <span className="underline decoration-white/50">₹1,999</span>
+                  UGC plans start from <span className="underline decoration-white/50">UGC plans start from <span className="underline decoration-white/50">₹999</span></span>
                 </h2>
                 <p className="text-white/80 text-lg">
                   Ad-ready UGC delivered fast. Usage rights included.

@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     q: 'How much does UGC cost?',
-    a: 'Our UGC plans start from ₹1,999. We offer both monthly packages and one-time options depending on your needs. Check our pricing page for detailed plans.',
+    a: 'Our UGC plans start from ₹999. We offer both monthly packages and one-time options depending on your needs. Check our pricing page for detailed plans.',
   },
   {
     q: 'How long does delivery take?',
