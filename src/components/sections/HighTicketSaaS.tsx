@@ -53,6 +53,7 @@ export default function HighTicketSaaS() {
         scrollTrigger: {
           trigger: headingRef.current,
           start: 'top 80%',
+          once: true,
         },
       });
 
@@ -67,6 +68,7 @@ export default function HighTicketSaaS() {
           scrollTrigger: {
             trigger: cardsRef.current,
             start: 'top 75%',
+            once: true,
           },
         });
       });
@@ -82,6 +84,7 @@ export default function HighTicketSaaS() {
           scrollTrigger: {
             trigger: metricsRef.current,
             start: 'top 80%',
+            once: true,
           },
         });
       });

@@ -31,6 +31,7 @@ export default function ComparisonTable() {
           scrollTrigger: {
             trigger: tableRef.current,
             start: 'top 75%',
+            once: true,
           },
         });
       });

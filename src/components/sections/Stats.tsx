@@ -51,6 +51,7 @@ export default function Stats() {
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top 80%',
+            once: true,
           },
         });
       });
