@@ -5,29 +5,46 @@ import { useEffect, useState } from 'react';
  */
 export function useLenis() {
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobileViewport = window.matchMedia('(max-width: 767px)').matches;
+
+    // Native scrolling performs better on most mobile devices.
+    if (prefersReducedMotion || isMobileViewport) return;
+
     let lenis: import('lenis').default | null = null;
+    let rafId = 0;
+    let isMounted = true;
 
     async function init() {
       const Lenis = (await import('lenis')).default;
+      if (!isMounted) return;
+
       lenis = new Lenis({
-        duration: 1.0,
+        duration: 0.9,
         easing: (t: number) => 1 - Math.pow(1 - t, 4),
         smoothWheel: true,
-        touchMultiplier: 1.5,
-        wheelMultiplier: 0.8,
+        touchMultiplier: 1,
+        wheelMultiplier: 0.9,
       });
 
-      function raf(time: number) {
-        lenis?.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
+      const raf = (time: number) => {
+        if (!isMounted || !lenis) return;
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+      };
+
+      rafId = requestAnimationFrame(raf);
     }
 
     init();
 
     return () => {
+      isMounted = false;
+      if (rafId) cancelAnimationFrame(rafId);
       lenis?.destroy();
+      lenis = null;
     };
   }, []);
 }

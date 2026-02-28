@@ -40,14 +40,14 @@ export default function LocalBrands() {
         gsap.from(card, {
           y: 60, opacity: 0, scale: 0.95, duration: 0.7, delay: i * 0.1,
           ease: 'power3.out',
-          scrollTrigger: { trigger: workGridRef.current, start: 'top 78%' },
+          scrollTrigger: { trigger: workGridRef.current, start: 'top 78%', once: true },
         });
       });
       gsap.utils.toArray<HTMLElement>('.result-card').forEach((card, i) => {
         gsap.from(card, {
           y: 50, opacity: 0, duration: 0.6, delay: i * 0.12,
           ease: 'power3.out',
-          scrollTrigger: { trigger: resultsRef.current, start: 'top 80%' },
+          scrollTrigger: { trigger: resultsRef.current, start: 'top 80%', once: true },
         });
       });
     });

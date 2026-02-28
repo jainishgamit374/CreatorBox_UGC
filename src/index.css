@@ -118,6 +118,15 @@ All colors MUST be HSL.
   }
 }
 
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  .blob-animation,
+  .blob-animation-delay,
+  .blob-animation-delay-2 {
+    animation: none;
+    transform: none !important;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

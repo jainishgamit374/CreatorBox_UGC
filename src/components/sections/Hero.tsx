@@ -18,7 +18,14 @@ export default function Hero() {
   const blobsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Parallax blobs on mouse move
+    if (
+      window.matchMedia('(pointer: coarse)').matches ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      return;
+    }
+
+    // Parallax blobs on mouse move (desktop only)
     const handleMove = (e: MouseEvent) => {
       if (!blobsRef.current) return;
       const x = (e.clientX / window.innerWidth - 0.5) * 30;
@@ -30,6 +37,7 @@ export default function Hero() {
         ease: 'power2.out',
       });
     };
+
     window.addEventListener('mousemove', handleMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMove);
   }, []);

@@ -31,6 +31,7 @@ export default function BehindTheScenes() {
           scrollTrigger: {
             trigger: gridRef.current,
             start: 'top 78%',
+            once: true,
           },
         });
       });

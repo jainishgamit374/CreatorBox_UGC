@@ -62,6 +62,7 @@ export default function Services() {
           scrollTrigger: {
             trigger: gridRef.current,
             start: 'top 78%',
+            once: true,
           },
         });
       });
