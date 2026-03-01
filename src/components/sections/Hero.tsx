@@ -71,9 +71,9 @@ export default function Hero() {
         >
           {/* Badge */}
           <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-8">
-            <span className="flex h-2 w-2 rounded-full bg-secondary animate-pulse" />
+            <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse" />
             <span className="text-sm font-medium text-muted-foreground tracking-widest uppercase">
-              UGC Agency for Indian Brands
+              Premium UGC & Creator Marketing
             </span>
           </motion.div>
 
@@ -82,9 +82,9 @@ export default function Hero() {
             variants={fadeUp}
             className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[0.95] tracking-tight mb-6"
           >
-            Authentic UGC for
+            Premium UGC that
             <br />
-            <span className="text-gradient italic">Local & Online Brands</span>
+            <span className="text-gradient italic">drives real revenue</span>
           </motion.h1>
 
           {/* Tagline */}
@@ -92,8 +92,9 @@ export default function Hero() {
             variants={fadeUp}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-10 font-light"
           >
-            We create high-quality UGC videos for cafés, shops, startups, and D2C brands
-            across India — built for <span className="text-foreground/80 font-medium">visibility, trust, and performance.</span>
+            RevouGC is a premium UGC and creator marketing agency that helps brands scale through
+            high-performing, data-backed video ads — from creator sourcing to final delivery, built for{' '}
+            <span className="text-foreground/80 font-medium">maximum ROI.</span>
           </motion.p>
 
           {/* CTA Buttons */}
@@ -139,8 +140,8 @@ export default function Hero() {
               ))}
             </div>
             <div>
-              <div className="text-sm font-semibold text-foreground">100+ Brands Trust Us</div>
-              <div className="text-xs text-muted-foreground">Local stores · D2C brands · Startups across India</div>
+            <div className="text-sm font-semibold text-foreground">100+ Brands Trust RevouGC</div>
+              <div className="text-xs text-muted-foreground">D2C brands · SaaS · Startups · Forward-thinking brands</div>
             </div>
           </motion.div>
         </motion.div>

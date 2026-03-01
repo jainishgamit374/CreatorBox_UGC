@@ -28,10 +28,10 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
             <Link to="/" className="font-display text-2xl font-bold text-white mb-4 inline-block">
-              Creator<span className="text-primary">Box</span>
+              Revou<span className="text-primary">GC</span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs mt-3 mb-6">
-              Authentic UGC content for local and online brands across India. Built for visibility, trust, and performance.
+              Premium UGC and creator marketing that drives real revenue. Full-service production for forward-thinking brands.
             </p>
             <div className="flex items-center gap-1 text-white/50 text-xs">
               <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
@@ -98,7 +98,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/30">
-            © {new Date().getFullYear()} CreatorBox. All rights reserved.
+            © {new Date().getFullYear()} RevouGC. All rights reserved.
           </p>
           <div className="flex gap-6">
             {['Privacy Policy', 'Terms of Service'].map((link) => (
