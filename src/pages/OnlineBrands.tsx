@@ -45,23 +45,24 @@ export default function OnlineBrands() {
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>('.content-card').forEach((card, i) => {
-        gsap.from(card, {
-          y: 60, opacity: 0, duration: 0.7, delay: i * 0.12,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: contentRef.current, start: 'top 78%', once: true },
+    let ctx: gsap.Context;
+    const rafId = requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        gsap.utils.toArray<HTMLElement>('.content-card').forEach((card, i) => {
+          gsap.from(card, {
+            y: 60, opacity: 0, duration: 0.7, delay: i * 0.12, ease: 'power3.out',
+            scrollTrigger: { trigger: contentRef.current, start: 'top 78%', once: true },
+          });
         });
-      });
-      gsap.utils.toArray<HTMLElement>('.benefit-card').forEach((card, i) => {
-        gsap.from(card, {
-          y: 50, opacity: 0, duration: 0.6, delay: i * 0.12,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: benefitsRef.current, start: 'top 80%', once: true },
+        gsap.utils.toArray<HTMLElement>('.benefit-card').forEach((card, i) => {
+          gsap.from(card, {
+            y: 50, opacity: 0, duration: 0.6, delay: i * 0.12, ease: 'power3.out',
+            scrollTrigger: { trigger: benefitsRef.current, start: 'top 80%', once: true },
+          });
         });
       });
     });
-    return () => ctx.revert();
+    return () => { cancelAnimationFrame(rafId); ctx?.revert(); };
   }, []);
 
   const filteredNiches = niches.filter((n) =>

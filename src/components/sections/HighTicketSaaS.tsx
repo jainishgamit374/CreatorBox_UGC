@@ -5,8 +5,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Rocket, Target, LineChart, Shield, Zap, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const features = [
   {
     icon: Target,
@@ -43,54 +41,29 @@ export default function HighTicketSaaS() {
   const headingRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Heading reveal with clip-path
-      gsap.from(headingRef.current, {
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: 'top 80%',
-          once: true,
-        },
-      });
-
-      // Stagger cards from bottom
-      gsap.utils.toArray<HTMLElement>('.saas-card').forEach((card, i) => {
-        gsap.from(card, {
-          y: 80,
-          opacity: 0,
-          duration: 0.8,
-          delay: i * 0.12,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: cardsRef.current,
-            start: 'top 75%',
-            once: true,
-          },
+    gsap.registerPlugin(ScrollTrigger);
+    let ctx: gsap.Context;
+    const rafId = requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        gsap.from(headingRef.current, {
+          y: 60, opacity: 0, duration: 1, ease: 'power3.out',
+          scrollTrigger: { trigger: headingRef.current, start: 'top 80%', once: true },
         });
-      });
-
-      // Metrics counter animation
-      gsap.utils.toArray<HTMLElement>('.saas-metric').forEach((metric, i) => {
-        gsap.from(metric, {
-          scale: 0.8,
-          opacity: 0,
-          duration: 0.6,
-          delay: i * 0.15,
-          ease: 'back.out(1.7)',
-          scrollTrigger: {
-            trigger: metricsRef.current,
-            start: 'top 80%',
-            once: true,
-          },
+        gsap.utils.toArray<HTMLElement>('.saas-card').forEach((card, i) => {
+          gsap.from(card, {
+            y: 80, opacity: 0, duration: 0.8, delay: i * 0.12, ease: 'power3.out',
+            scrollTrigger: { trigger: cardsRef.current, start: 'top 75%', once: true },
+          });
         });
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
+        gsap.utils.toArray<HTMLElement>('.saas-metric').forEach((metric, i) => {
+          gsap.from(metric, {
+            scale: 0.8, opacity: 0, duration: 0.6, delay: i * 0.15, ease: 'back.out(1.7)',
+            scrollTrigger: { trigger: metricsRef.current, start: 'top 80%', once: true },
+          });
+        });
+      }, sectionRef);
+    });
+    return () => { cancelAnimationFrame(rafId); ctx?.revert(); };
   }, []);
 
   return (

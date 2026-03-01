@@ -6,8 +6,6 @@ import {
   Share2, Globe, Megaphone, BarChart3, Palette, Video
 } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const services = [
   {
     icon: Video,
@@ -51,23 +49,19 @@ export default function Services() {
   const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>('.service-card').forEach((card, i) => {
-        gsap.from(card, {
-          y: 60,
-          opacity: 0,
-          duration: 0.7,
-          delay: i * 0.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: gridRef.current,
-            start: 'top 78%',
-            once: true,
-          },
+    gsap.registerPlugin(ScrollTrigger);
+    let ctx: gsap.Context;
+    const rafId = requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        gsap.utils.toArray<HTMLElement>('.service-card').forEach((card, i) => {
+          gsap.from(card, {
+            y: 60, opacity: 0, duration: 0.7, delay: i * 0.1, ease: 'power3.out',
+            scrollTrigger: { trigger: gridRef.current, start: 'top 78%', once: true },
+          });
         });
-      });
-    }, gridRef);
-    return () => ctx.revert();
+      }, gridRef);
+    });
+    return () => { cancelAnimationFrame(rafId); ctx?.revert(); };
   }, []);
 
   return (

@@ -5,8 +5,6 @@ import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const stats = [
   { icon: Video, value: 500, suffix: '+', label: 'UGC Videos Delivered', color: 'text-primary' },
   { icon: Users, value: 100, suffix: '+', label: 'Brands Served', color: 'text-secondary' },
@@ -39,24 +37,20 @@ export default function Stats() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>('.stat-card').forEach((card, i) => {
-        gsap.from(card, {
-          y: 50,
-          opacity: 0,
-          scale: 0.95,
-          duration: 0.7,
-          delay: i * 0.12,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top 80%',
-            once: true,
-          },
+    gsap.registerPlugin(ScrollTrigger);
+    let ctx: gsap.Context;
+    const rafId = requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        gsap.utils.toArray<HTMLElement>('.stat-card').forEach((card, i) => {
+          gsap.from(card, {
+            y: 50, opacity: 0, scale: 0.95, duration: 0.7, delay: i * 0.12,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: containerRef.current, start: 'top 80%', once: true },
+          });
         });
-      });
-    }, containerRef);
-    return () => ctx.revert();
+      }, containerRef);
+    });
+    return () => { cancelAnimationFrame(rafId); ctx?.revert(); };
   }, []);
 
   return (
