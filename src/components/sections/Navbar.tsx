@@ -7,6 +7,7 @@ const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'Local Brands', href: '/local-brands' },
   { label: 'Online / D2C', href: '/online-brands' },
+  { label: 'Website', href: '/website' },
 ];
 
 export default function Navbar() {
@@ -38,7 +39,7 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/95 backdrop-blur-sm shadow-sm border-b border-border'
+            ? 'bg-background/95 backdrop-blur-sm shadow-sm border-b border-border'
             : 'bg-transparent'
         }`}
       >
@@ -48,7 +49,7 @@ export default function Navbar() {
             to="/"
             className="font-display text-xl font-bold text-foreground hover:text-primary transition-colors"
           >
-            Creator<span className="text-primary">Box</span>
+            Revou<span className="text-primary">GC</span>
           </Link>
 
           {/* Desktop Nav */}
@@ -112,11 +113,11 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 h-full w-72 z-50 bg-white shadow-2xl md:hidden flex flex-col"
+              className="fixed top-0 right-0 h-full w-72 z-50 bg-background shadow-2xl md:hidden flex flex-col"
             >
               <div className="flex items-center justify-between p-6 border-b border-border">
                 <span className="font-display text-lg font-bold">
-                  Creator<span className="text-primary">Box</span>
+                  Revou<span className="text-primary">GC</span>
                 </span>
                 <button
                   onClick={() => setMobileOpen(false)}
