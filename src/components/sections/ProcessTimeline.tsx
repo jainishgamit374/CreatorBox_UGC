@@ -3,8 +3,6 @@ import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
-
 interface ProcessTimelineProps {
   variant?: 'local' | 'online';
 }
@@ -27,23 +25,23 @@ export default function ProcessTimeline({ variant = 'local' }: ProcessTimelinePr
   const steps = variant === 'local' ? localSteps : onlineSteps;
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(lineRef.current, {
-        scaleX: 0,
-        transformOrigin: 'left center',
-        duration: 1.5,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: containerRef.current, start: 'top 70%', once: true },
-      });
-
-      gsap.utils.toArray<HTMLElement>('.process-step').forEach((step, i) => {
-        gsap.from(step, {
-          y: 40, opacity: 0, duration: 0.7, delay: i * 0.15, ease: 'power3.out',
+    gsap.registerPlugin(ScrollTrigger);
+    let ctx: gsap.Context;
+    const rafId = requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        gsap.from(lineRef.current, {
+          scaleX: 0, transformOrigin: 'left center', duration: 1.5, ease: 'power2.out',
           scrollTrigger: { trigger: containerRef.current, start: 'top 70%', once: true },
         });
-      });
-    }, containerRef);
-    return () => ctx.revert();
+        gsap.utils.toArray<HTMLElement>('.process-step').forEach((step, i) => {
+          gsap.from(step, {
+            y: 40, opacity: 0, duration: 0.7, delay: i * 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: containerRef.current, start: 'top 70%', once: true },
+          });
+        });
+      }, containerRef);
+    });
+    return () => { cancelAnimationFrame(rafId); ctx?.revert(); };
   }, []);
 
   return (

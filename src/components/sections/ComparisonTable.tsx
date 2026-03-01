@@ -4,8 +4,6 @@ import { Check, X } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const rows = [
   { feature: 'Local + Online Focus', us: true, others: 'Mostly Online Only' },
   { feature: 'iGC + Professional Creators', us: true, others: 'Freelancers Only' },
@@ -20,23 +18,19 @@ export default function ComparisonTable() {
   const tableRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>('.comparison-row').forEach((row, i) => {
-        gsap.from(row, {
-          x: -40,
-          opacity: 0,
-          duration: 0.5,
-          delay: i * 0.08,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: tableRef.current,
-            start: 'top 75%',
-            once: true,
-          },
+    gsap.registerPlugin(ScrollTrigger);
+    let ctx: gsap.Context;
+    const rafId = requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        gsap.utils.toArray<HTMLElement>('.comparison-row').forEach((row, i) => {
+          gsap.from(row, {
+            x: -40, opacity: 0, duration: 0.5, delay: i * 0.08, ease: 'power2.out',
+            scrollTrigger: { trigger: tableRef.current, start: 'top 75%', once: true },
+          });
         });
-      });
-    }, tableRef);
-    return () => ctx.revert();
+      }, tableRef);
+    });
+    return () => { cancelAnimationFrame(rafId); ctx?.revert(); };
   }, []);
 
   return (

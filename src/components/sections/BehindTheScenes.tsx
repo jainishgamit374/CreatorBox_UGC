@@ -4,8 +4,6 @@ import { Camera } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const btsItems = [
   { label: 'Café Shoot', gradient: 'from-primary/20 to-accent/10' },
   { label: 'Product Unboxing', gradient: 'from-secondary/20 to-primary/10' },
@@ -19,24 +17,19 @@ export default function BehindTheScenes() {
   const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>('.bts-card').forEach((card, i) => {
-        gsap.from(card, {
-          y: 60,
-          opacity: 0,
-          scale: 0.92,
-          duration: 0.7,
-          delay: i * 0.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: gridRef.current,
-            start: 'top 78%',
-            once: true,
-          },
+    gsap.registerPlugin(ScrollTrigger);
+    let ctx: gsap.Context;
+    const rafId = requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        gsap.utils.toArray<HTMLElement>('.bts-card').forEach((card, i) => {
+          gsap.from(card, {
+            y: 60, opacity: 0, scale: 0.92, duration: 0.7, delay: i * 0.1, ease: 'power3.out',
+            scrollTrigger: { trigger: gridRef.current, start: 'top 78%', once: true },
+          });
         });
-      });
-    }, gridRef);
-    return () => ctx.revert();
+      }, gridRef);
+    });
+    return () => { cancelAnimationFrame(rafId); ctx?.revert(); };
   }, []);
 
   return (
