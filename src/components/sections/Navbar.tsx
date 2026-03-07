@@ -46,10 +46,13 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center gap-2 font-display text-xl font-bold text-foreground hover:text-primary transition-colors"
+            className="flex items-center gap-2 font-display text-xl font-extrabold tracking-wide transition-colors"
           >
-            <img src="/logo.png" alt="RevouGC Logo" className="h-8 w-8 rounded-md object-cover" />
-            <span className="text-primary">RevoUGC</span>
+            <img src="/logo.png" alt="REVOUGC Logo" className="h-8 w-8 rounded-md object-cover" />
+            <span className="uppercase">
+              <span className="text-foreground">REVO</span>
+              <span className="text-primary">UGC</span>
+            </span>
           </Link>
 
           {/* Desktop Nav */}
@@ -114,9 +117,12 @@ export default function Navbar() {
               className="fixed top-0 right-0 h-full w-72 z-50 bg-background shadow-2xl md:hidden flex flex-col border-l border-border/50"
             >
               <div className="flex items-center justify-between p-6 border-b border-border/50">
-                <span className="flex items-center gap-2 font-display text-lg font-bold text-foreground">
-                  <img src="/logo.png" alt="RevouGC Logo" className="h-7 w-7 rounded-md object-cover" />
-                  Revou<span className="text-primary">GC</span>
+                <span className="flex items-center gap-2 font-display text-lg font-extrabold tracking-wide">
+                  <img src="/logo.png" alt="REVOUGC Logo" className="h-7 w-7 rounded-md object-cover" />
+                  <span className="uppercase">
+                    <span className="text-foreground">REVOU</span>
+                    <span className="text-primary">GC</span>
+                  </span>
                 </span>
                 <button
                   onClick={() => setMobileOpen(false)}

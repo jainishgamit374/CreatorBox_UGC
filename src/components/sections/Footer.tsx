@@ -27,8 +27,8 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 mb-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
-            <Link to="/" className="font-display text-2xl font-bold text-foreground mb-4 inline-block">
-              Revou<span className="text-foreground/70">GC</span>
+            <Link to="/" className="font-display text-2xl font-extrabold tracking-wide text-foreground mb-4 inline-block uppercase">
+              <span className="text-foreground">REVOU</span><span className="text-primary">GC</span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mt-3 mb-6">
               Premium UGC and creator marketing that drives real revenue. Full-service production for forward-thinking brands.
