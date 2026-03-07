@@ -1,0 +1,313 @@
+import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Search, MapPin, Eye, Users, TrendingUp, ArrowRight, Play } from 'lucide-react';
+import { useLenis } from '@/hooks/useUtils';
+import Navbar from '@/components/sections/Navbar';
+import ProcessTimeline from '@/components/sections/ProcessTimeline';
+import Testimonials from '@/components/sections/Testimonials';
+import Contact from '@/components/sections/Contact';
+import Footer from '@/components/sections/Footer';
+
+const categories = ['Café', 'Restaurant', 'Salon', 'Gym', 'Clinic', 'Real Estate', 'Coaching'];
+
+const bestWork = [
+  { title: 'Café Reel — Walk-in Vibe', category: 'Café', goal: 'Discovery', platform: 'Instagram' },
+  { title: 'Salon Transformation', category: 'Salon', goal: 'Engagement', platform: 'Instagram' },
+  { title: 'Gym Tour UGC', category: 'Gym', goal: 'Visibility', platform: 'YouTube Shorts' },
+  { title: 'Clinic Testimonial', category: 'Clinic', goal: 'Trust', platform: 'Instagram' },
+  { title: 'Restaurant Food Reel', category: 'Restaurant', goal: 'Walk-ins', platform: 'Instagram' },
+  { title: 'Coaching Center Ad', category: 'Coaching', goal: 'Leads', platform: 'Meta Ads' },
+];
+
+const expectedResults = [
+  { week: 'Week 1', title: 'Brand Visibility', description: 'Your content starts reaching local audiences through organic discovery.', icon: Eye },
+  { week: 'Week 2', title: 'Profile Visits & Discovery', description: 'People start visiting your profile, searching your location, and exploring.', icon: Users },
+  { week: 'Week 3–4', title: 'Engagement Growth', description: 'Meaningful engagement builds — DMs, saves, shares, and foot traffic.', icon: TrendingUp },
+];
+
+export default function LocalBrands() {
+  const [search, setSearch] = useState('');
+  const workGridRef = useRef<HTMLDivElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
+  useLenis();
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray<HTMLElement>('.result-card').forEach((card, i) => {
+        gsap.from(card, {
+          y: 50, opacity: 0, duration: 0.6, delay: i * 0.12,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: resultsRef.current, start: 'top 80%', once: true },
+        });
+      });
+    });
+    return () => ctx.revert();
+  }, []);
+
+  const filteredCategories = categories.filter((c) =>
+    c.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <div className="min-h-screen bg-background font-sans">
+      <Navbar />
+      <main>
+        {/* Hero */}
+        <section className="relative pt-28 pb-20 bg-light overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+            <div className="absolute top-1/3 -left-20 w-72 h-72 rounded-full bg-primary/10 blob-animation" />
+            <div className="absolute bottom-10 right-0 w-64 h-64 rounded-full bg-secondary/10 blob-animation-delay" />
+          </div>
+          <div className="container-custom relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              className="max-w-3xl"
+            >
+              <div className="inline-flex items-center gap-2 mb-6">
+                <MapPin size={16} className="text-primary" />
+                <span className="text-sm font-medium text-primary uppercase tracking-widest">For Local Brands</span>
+              </div>
+              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[0.95] mb-6">
+                UGC for your{' '}
+                <span className="text-gradient italic">local store</span>
+              </h1>
+              <p className="text-lg text-muted-foreground max-w-xl leading-relaxed mb-8">
+                We send iGC creators to your café, salon, gym, or shop for real store-visit content that drives foot traffic and builds trust.
+              </p>
+
+              {/* Search */}
+              <div className="relative max-w-md">
+                <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search your business type (café, salon, gym…)"
+                  className="w-full pl-11 pr-4 py-4 rounded-full border border-border bg-white text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
+                />
+              </div>
+
+              {/* Category pills */}
+              <div className="flex flex-wrap gap-2 mt-6">
+                {filteredCategories.map((cat) => (
+                  <span
+                    key={cat}
+                    className="px-4 py-2 text-sm font-medium bg-white border border-border rounded-full hover:border-primary/40 hover:text-primary transition-colors cursor-default"
+                  >
+                    {cat}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Best UGC Work */}
+        <section className="section-padding bg-white" aria-label="Best UGC work">
+          <div className="container-custom">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="max-w-2xl mb-12"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <span className="w-8 h-0.5 bg-primary" />
+                <span className="text-sm font-medium text-primary uppercase tracking-widest">Best UGC Work</span>
+              </div>
+              <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
+                Top-performing{' '}
+                <span className="text-gradient italic">content</span>
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Auto-play reels showing our best content with category, goal, and platform overlay.
+              </p>
+            </motion.div>
+
+            <div ref={workGridRef} className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              {bestWork.slice(0, 4).map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: i * 0.1, ease: 'easeOut' }}
+                  className="group relative bg-[#0f0f11] rounded-3xl aspect-[9/16] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer border border-white/5"
+                >
+                  {/* Subtle hover background sweep */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+
+                  {/* Placeholder for Video/Image */}
+                  <div className="absolute inset-0 bg-slate-800">
+                    {/* Dark gradient for thumbnail presence */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-slate-900 to-slate-800 group-hover:scale-105 transition-transform duration-700" />
+                  </div>
+
+                  {/* Top Badge */}
+                  <div className="absolute top-4 right-4 z-20">
+                    <span className="text-[10px] font-bold tracking-wider uppercase text-white bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+                      {item.platform}
+                    </span>
+                  </div>
+
+                  {/* Content Container (Bottom) */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5 z-20 flex flex-col justify-end h-full">
+
+                    {/* Sub Title / Category */}
+                    <div className="translate-y-8 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-75 mb-2">
+                      <span className="text-xs font-medium text-white/70 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                        {item.category} • Goal: {item.goal}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-4">
+                      {/* Title */}
+                      <h3 className="text-lg md:text-xl font-display font-medium text-white leading-tight translate-y-4 group-hover:translate-y-0 transition-all duration-500 line-clamp-2">
+                        {item.title}
+                      </h3>
+
+                      {/* Hover Arrow Indicator - Moves down into view */}
+                      <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full bg-white text-black opacity-0 translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 rotate-45 group-hover:rotate-0 transition-transform duration-500" />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Expected Results */}
+        <section className="section-padding bg-light" aria-label="Expected results">
+          <div className="container-custom">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="max-w-2xl mb-12"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <span className="w-8 h-0.5 bg-primary" />
+                <span className="text-sm font-medium text-primary uppercase tracking-widest">Expected Results</span>
+              </div>
+              <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
+                What to expect in{' '}
+                <span className="text-gradient italic">30 days</span>
+              </h2>
+            </motion.div>
+
+            <div ref={resultsRef} className="grid md:grid-cols-3 gap-6 mb-8">
+              {expectedResults.map((item) => (
+                <div
+                  key={item.week}
+                  className="result-card p-6 bg-white rounded-2xl border border-border"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                    <item.icon size={20} className="text-primary" />
+                  </div>
+                  <span className="text-xs font-bold text-primary uppercase tracking-widest">{item.week}</span>
+                  <h3 className="text-lg font-semibold text-foreground mt-1 mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="p-4 bg-accent/10 rounded-xl border border-accent/20">
+              <p className="text-sm text-foreground">
+                <span className="font-semibold">Note:</span> Organic UGC builds steadily. Paid ads can accelerate results.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Who Creates */}
+        <section className="section-padding bg-white" aria-label="Who creates the content">
+          <div className="container-custom">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="w-8 h-0.5 bg-primary" />
+                  <span className="text-sm font-medium text-primary uppercase tracking-widest">Our Creators</span>
+                </div>
+                <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
+                  Who creates the{' '}
+                  <span className="text-gradient italic">content</span>
+                </h2>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Created by our <span className="font-semibold text-foreground">iGC (In-house / Influencer Creators)</span> using
+                  real store visits and collaborations. They know how to capture the vibe, energy, and authenticity of your space.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {['Real Store Visits', 'Trained Creators', 'Local Knowledge', 'Authentic Content'].map((tag) => (
+                    <span key={tag} className="px-3 py-1.5 text-xs font-medium bg-muted text-foreground rounded-full border border-border">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="aspect-square rounded-3xl bg-gradient-to-br from-primary/10 to-secondary/10 border border-border flex items-center justify-center"
+              >
+                <div className="text-center">
+                  <div className="text-6xl mb-3">🎬</div>
+                  <p className="text-muted-foreground text-sm">Creator photos here</p>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Pricing Preview */}
+        <section className="py-16 bg-gradient-to-r from-primary via-primary/90 to-primary/70" aria-label="Pricing preview">
+          <div className="container-custom">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="flex flex-col md:flex-row items-center justify-between gap-8"
+            >
+              <div className="text-center md:text-left">
+                <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-2">
+                  UGC plans start from <span className="underline decoration-white/50">₹999</span>
+                </h2>
+                <p className="text-white/80 text-lg">
+                  Monthly and one-time options available. No hidden fees.
+                </p>
+              </div>
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-full font-bold text-base hover:bg-white/90 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex-shrink-0"
+              >
+                Book a Free Store Visit Call
+                <ArrowRight size={18} />
+              </a>
+            </motion.div>
+          </div>
+        </section>
+
+        <ProcessTimeline variant="local" />
+        <Testimonials />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  );
+}

@@ -1,0 +1,87 @@
+import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { Camera } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+const btsItems = [
+  { label: 'Café Shoot', gradient: 'from-primary/20 to-accent/10' },
+  { label: 'Product Unboxing', gradient: 'from-secondary/20 to-primary/10' },
+  { label: 'Creator Collab', gradient: 'from-accent/20 to-secondary/10' },
+  { label: 'Store Visit', gradient: 'from-primary/30 to-secondary/5' },
+  { label: 'Reel Setup', gradient: 'from-accent/10 to-primary/20' },
+  { label: 'On Location', gradient: 'from-secondary/10 to-accent/20' },
+  { label: 'Studio Edit', gradient: 'from-primary/10 to-secondary/20' },
+  { label: 'Final Cut', gradient: 'from-accent/5 to-primary/30' },
+];
+
+export default function BehindTheScenes() {
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    let ctx: gsap.Context;
+    const rafId = requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        gsap.utils.toArray<HTMLElement>('.bts-card').forEach((card, i) => {
+          gsap.from(card, {
+            y: 60, opacity: 0, scale: 0.92, duration: 0.7, delay: i * 0.1, ease: 'power3.out',
+            scrollTrigger: { trigger: gridRef.current, start: 'top 78%', once: true },
+          });
+        });
+      }, gridRef);
+    });
+    return () => { cancelAnimationFrame(rafId); ctx?.revert(); };
+  }, []);
+
+  return (
+    <section className="section-padding bg-light" aria-label="Behind the scenes">
+      <div className="container-custom">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-2xl mb-12"
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <span className="w-8 h-0.5 bg-primary" />
+            <span className="text-sm font-medium text-primary uppercase tracking-widest">Behind The Scenes</span>
+          </div>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
+            Real work,{' '}
+            <span className="text-gradient italic">real creators</span>
+          </h2>
+          <p className="text-muted-foreground leading-relaxed">
+            A look at our shoots, creators, and on-location work that builds trust and delivers results.
+          </p>
+        </motion.div>
+
+        <div ref={gridRef} className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {btsItems.slice(0, 8).map((item) => (
+            <motion.div
+              key={item.label}
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+              className={`bts-card relative aspect-[9/16] rounded-3xl bg-gradient-to-br ${item.gradient} border border-border overflow-hidden group cursor-default shadow-sm hover:shadow-xl`}
+            >
+              {/* Subtle sweep */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Camera size={32} className="text-foreground/20 group-hover:text-primary/40 transition-colors duration-300" />
+              </div>
+
+              {/* Content */}
+              <div className="absolute bottom-0 left-0 right-0 p-5 z-20 flex flex-col justify-end overflow-hidden">
+                <span className="text-lg font-display font-medium text-foreground bg-white/10 backdrop-blur-sm self-start px-3 py-1.5 rounded-xl border border-white/20 shadow-sm translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
+                  {item.label}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
