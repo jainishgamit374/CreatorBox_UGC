@@ -10,6 +10,8 @@ const LocalBrands = lazy(() => import("./pages/LocalBrands"));
 const OnlineBrands = lazy(() => import("./pages/OnlineBrands"));
 const Website = lazy(() => import("./pages/Website"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const Admin = lazy(() => import("./pages/Admin"));
+const Feedback = lazy(() => import("./pages/Feedback"));
 
 const queryClient = new QueryClient();
 
@@ -37,6 +39,8 @@ const App = () => (
             <Route path="/local-brands" element={<LocalBrands />} />
             <Route path="/online-brands" element={<OnlineBrands />} />
             <Route path="/website" element={<Website />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/feedback" element={<Feedback />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

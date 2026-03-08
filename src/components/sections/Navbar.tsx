@@ -120,8 +120,8 @@ export default function Navbar() {
                 <span className="flex items-center gap-2 font-display text-lg font-extrabold tracking-wide">
                   <img src="/logo.png" alt="REVOUGC Logo" className="h-7 w-7 rounded-md object-cover" />
                   <span className="uppercase">
-                    <span className="text-foreground">REVOU</span>
-                    <span className="text-primary">GC</span>
+                    <span className="text-foreground">REVO</span>
+                    <span className="text-primary">UGC</span>
                   </span>
                 </span>
                 <button

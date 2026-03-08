@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send } from 'lucide-react';
+import { Send, MessageSquare } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const footerLinks = {
@@ -28,14 +28,21 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
             <Link to="/" className="font-display text-2xl font-extrabold tracking-wide text-foreground mb-4 inline-block uppercase">
-              <span className="text-foreground">REVOU</span><span className="text-primary">GC</span>
+              <span className="text-foreground">REVO</span><span className="text-primary">UGC</span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mt-3 mb-6">
               Premium UGC and creator marketing that drives real revenue. Full-service production for forward-thinking brands.
             </p>
-            <div className="flex items-center gap-1 text-muted-foreground text-xs">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_hsl(var(--primary))]" />
-              Accepting new brands
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="flex items-center gap-1 text-muted-foreground text-xs">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_hsl(var(--primary))]" />
+                Accepting new brands
+              </div>
+
+              <Link to="/feedback" className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full border border-border bg-card text-muted-foreground hover:bg-primary/5 hover:border-primary/50 hover:text-primary transition-all shadow-sm">
+                <MessageSquare size={13} />
+                Leave Feedback
+              </Link>
             </div>
           </div>
 

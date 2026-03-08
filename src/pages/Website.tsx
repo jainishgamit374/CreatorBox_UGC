@@ -6,6 +6,8 @@ import { ArrowRight, Code, Palette, Smartphone, Globe, Zap, BarChart3, CheckCirc
 import { useState, useEffect, useMemo, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { getProjects, getTestimonials, getPricingPlans } from '@/data/adminStore';
+import type { Project, Testimonial, PricingPlan } from '@/data/adminStore';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -31,56 +33,7 @@ const services = [
   { icon: BarChart3, title: 'Conversion Systems', description: 'Data-driven architectures designed specifically to turn traffic into revenue.' },
 ];
 
-const projects = [
-  { title: 'The Artisan Cafe', category: 'Local Business', description: 'Complete digital presence and ordering system for a boutique coffee roaster.', color: 'from-primary/20 to-secondary/20' },
-  { title: 'Elevate Events', category: 'Event Management', description: 'High-converting booking platform and portfolio for an elite event management firm.', color: 'from-secondary/20 to-accent/20' },
-  { title: 'Aura Skincare', category: 'D2C Product', description: 'Stunning e-commerce storefront for a premium organic skincare line, focusing on UGC.', color: 'from-accent/20 to-primary/20' },
-  { title: 'Nexus Tech Solutions', category: 'B2B Services', description: 'Professional corporate website demonstrating authority and driving qualified leads.', color: 'from-primary/10 to-secondary/10' },
-];
 
-const testimonials = [
-  {
-    name: "Sarah Jenkins",
-    role: "CTO, TechFlow",
-    initials: "SJ",
-    quote: "The architecture he built scaled effortlessly to 100k daily active users. Highly recommend his system design expertise."
-  },
-  {
-    name: "Marcus Chen",
-    role: "Founder, Elevate",
-    initials: "MC",
-    quote: "Delivered our complex Fintech dashboard weeks ahead of schedule. The code quality is immaculate."
-  },
-  {
-    name: "Jessica Walsh",
-    role: "VP Eng, Nexus",
-    initials: "JW",
-    quote: "Our Google Lighthouse scores went from 40 to 99 after his performance tuning. Incredible results."
-  }
-];
-
-
-const pricingPlans = [
-  {
-    name: 'Landing Page',
-    price: '₹25,000',
-    description: 'High-converting single page build',
-    features: ['Custom Design & Development', 'Advanced Animations', 'SEO Optimization', 'Contact Forms & API', '2 revision rounds', '7-day delivery'],
-  },
-  {
-    name: 'Web Platform',
-    price: '₹80,000',
-    description: 'Full-scale scalable website',
-    features: ['Up to 10 unique pages', 'CMS Integration (Sanity/Strapi)', 'Complex UI/UX Interactions', 'Analytics & Tracking Setup', 'Performance Guarantee', '14-day delivery'],
-    popular: true,
-  },
-  {
-    name: 'SaaS / App Build',
-    price: 'Custom',
-    description: 'Complex web applications',
-    features: ['Custom Web Architecture', 'Database & Auth Systems', '3rd Party API Integrations', 'Real-time Features', 'Admin Dashboards', 'Priority Support'],
-  },
-];
 
 function WebsiteAnimatedTitle() {
   const [titleNumber, setTitleNumber] = useState(0);
@@ -128,6 +81,11 @@ export default function Website() {
   const [contactEmail, setContactEmail] = useState('');
   const [contactSent, setContactSent] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Load data from admin store
+  const projects = getProjects();
+  const testimonials = getTestimonials().map(t => ({ ...t, role: t.company }));
+  const pricingPlans = getPricingPlans();
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -333,8 +291,12 @@ export default function Website() {
                   whileHover={{ y: -6 }}
                   className="group relative overflow-hidden rounded-2xl border border-border bg-card hover:border-primary/30 transition-all duration-300 shadow-sm"
                 >
-                  <div className={`aspect-video bg-gradient-to-br ${project.color} flex items-center justify-center`}>
-                    <Code size={40} className="text-primary/50 group-hover:text-primary transition-colors" />
+                  <div className={`aspect-video bg-gradient-to-br ${project.color} flex items-center justify-center relative overflow-hidden`}>
+                    {project.image ? (
+                      <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover" />
+                    ) : (
+                      <Code size={40} className="text-primary/50 group-hover:text-primary transition-colors" />
+                    )}
                   </div>
                   <div className="p-6">
                     <span className="text-xs font-medium text-primary uppercase tracking-wider">{project.category}</span>

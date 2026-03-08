@@ -170,7 +170,7 @@ export default function CreatorOnboarding() {
                                         <p className="text-background font-semibold text-sm">{c.name}</p>
                                         <p className="text-background/50 text-xs truncate">{c.niche} · {c.handle}</p>
                                     </div>
-                                    <span className="text-xs font-bold text-primary bg-primary/10 px-2.5 py-1 rounded-full whitespace-nowrap">
+                                    <span className="text-xs font-bold bg-primary/10 px-2.5 py-1 rounded-full whitespace-nowrap">
                                         {c.followers}
                                     </span>
                                 </motion.div>
