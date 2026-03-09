@@ -11,13 +11,13 @@ export default function Feedback() {
     const [submitted, setSubmitted] = useState(false);
     const navigate = useNavigate();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!form.name || !form.quote) return;
 
         const initials = form.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
 
-        addTestimonial({
+        await addTestimonial({
             name: form.name,
             company: form.company || 'Client',
             quote: form.quote,

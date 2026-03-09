@@ -1,5 +1,4 @@
-// Admin data store using localStorage for persistent CRUD operations
-// Manages: Selected Work (Projects), Testimonials, Pricing Plans
+import { supabase } from '@/lib/supabase';
 
 export interface Project {
     id: string;
@@ -27,7 +26,7 @@ export interface PricingPlan {
     popular?: boolean;
 }
 
-// Default data
+// Default data (used as fallback or for seeding)
 const defaultProjects: Project[] = [
     { id: '1', title: 'The Artisan Cafe', category: 'Local Business', description: 'Complete digital presence and ordering system for a boutique coffee roaster.', color: 'from-primary/20 to-secondary/20' },
     { id: '2', title: 'Elevate Events', category: 'Event Management', description: 'High-converting booking platform and portfolio for an elite event management firm.', color: 'from-secondary/20 to-accent/20' },
@@ -57,87 +56,111 @@ const defaultPricingPlans: PricingPlan[] = [
     },
 ];
 
-function generateId(): string {
-    return Date.now().toString(36) + Math.random().toString(36).substring(2, 9);
+// Helper to seed database if empty
+export async function seedDatabase() {
+    try {
+        const { data: projects } = await supabase.from('projects').select('id').limit(1);
+        if (!projects || projects.length === 0) {
+            await supabase.from('projects').insert(defaultProjects.map(({ id, ...p }) => p));
+        }
+
+        const { data: testimonials } = await supabase.from('testimonials').select('id').limit(1);
+        if (!testimonials || testimonials.length === 0) {
+            await supabase.from('testimonials').insert(defaultTestimonials.map(({ id, ...t }) => t));
+        }
+
+        const { data: pricing } = await supabase.from('pricing_plans').select('id').limit(1);
+        if (!pricing || pricing.length === 0) {
+            await supabase.from('pricing_plans').insert(defaultPricingPlans.map(({ id, ...p }) => p));
+        }
+    } catch (e) {
+        console.warn("Seeding failed. This is expected if tables are not created yet.", e);
+    }
 }
 
 // ── Projects ──
-export function getProjects(): Project[] {
-    const data = localStorage.getItem('admin_projects');
-    return data ? JSON.parse(data) : defaultProjects;
+export async function getProjects(): Promise<Project[]> {
+    const { data, error } = await supabase.from('projects').select('*').order('created_at', { ascending: false });
+    if (error) {
+        console.error('Error fetching projects:', error);
+        return defaultProjects;
+    }
+    return data && data.length > 0 ? data : defaultProjects;
 }
 
-export function saveProjects(projects: Project[]): void {
-    localStorage.setItem('admin_projects', JSON.stringify(projects));
+export async function addProject(project: Omit<Project, 'id'>): Promise<Project | null> {
+    const { data, error } = await supabase.from('projects').insert([project]).select().single();
+    if (error) {
+        console.error('Error adding project:', error);
+        return null;
+    }
+    return data;
 }
 
-export function addProject(project: Omit<Project, 'id'>): Project {
-    const projects = getProjects();
-    const newProject = { ...project, id: generateId() };
-    projects.push(newProject);
-    saveProjects(projects);
-    return newProject;
+export async function updateProject(id: string, data: Partial<Project>): Promise<void> {
+    const { error } = await supabase.from('projects').update(data).eq('id', id);
+    if (error) console.error('Error updating project:', error);
 }
 
-export function updateProject(id: string, data: Partial<Project>): void {
-    const projects = getProjects().map((p) => (p.id === id ? { ...p, ...data } : p));
-    saveProjects(projects);
-}
-
-export function deleteProject(id: string): void {
-    saveProjects(getProjects().filter((p) => p.id !== id));
+export async function deleteProject(id: string): Promise<void> {
+    const { error } = await supabase.from('projects').delete().eq('id', id);
+    if (error) console.error('Error deleting project:', error);
 }
 
 // ── Testimonials ──
-export function getTestimonials(): Testimonial[] {
-    const data = localStorage.getItem('admin_testimonials');
-    return data ? JSON.parse(data) : defaultTestimonials;
+export async function getTestimonials(): Promise<Testimonial[]> {
+    const { data, error } = await supabase.from('testimonials').select('*').order('created_at', { ascending: false });
+    if (error) {
+        console.error('Error fetching testimonials:', error);
+        return defaultTestimonials;
+    }
+    return data && data.length > 0 ? data : defaultTestimonials;
 }
 
-export function saveTestimonials(testimonials: Testimonial[]): void {
-    localStorage.setItem('admin_testimonials', JSON.stringify(testimonials));
+export async function addTestimonial(testimonial: Omit<Testimonial, 'id'>): Promise<Testimonial | null> {
+    const { data, error } = await supabase.from('testimonials').insert([testimonial]).select().single();
+    if (error) {
+        console.error('Error adding testimonial:', error);
+        return null;
+    }
+    return data;
 }
 
-export function addTestimonial(testimonial: Omit<Testimonial, 'id'>): Testimonial {
-    const testimonials = getTestimonials();
-    const newTestimonial = { ...testimonial, id: generateId() };
-    testimonials.push(newTestimonial);
-    saveTestimonials(testimonials);
-    return newTestimonial;
+export async function updateTestimonial(id: string, data: Partial<Testimonial>): Promise<void> {
+    const { error } = await supabase.from('testimonials').update(data).eq('id', id);
+    if (error) console.error('Error updating testimonial:', error);
 }
 
-export function updateTestimonial(id: string, data: Partial<Testimonial>): void {
-    const testimonials = getTestimonials().map((t) => (t.id === id ? { ...t, ...data } : t));
-    saveTestimonials(testimonials);
-}
-
-export function deleteTestimonial(id: string): void {
-    saveTestimonials(getTestimonials().filter((t) => t.id !== id));
+export async function deleteTestimonial(id: string): Promise<void> {
+    const { error } = await supabase.from('testimonials').delete().eq('id', id);
+    if (error) console.error('Error deleting testimonial:', error);
 }
 
 // ── Pricing Plans ──
-export function getPricingPlans(): PricingPlan[] {
-    const data = localStorage.getItem('admin_pricing');
-    return data ? JSON.parse(data) : defaultPricingPlans;
+export async function getPricingPlans(): Promise<PricingPlan[]> {
+    const { data, error } = await supabase.from('pricing_plans').select('*').order('created_at', { ascending: true });
+    if (error) {
+        console.error('Error fetching pricing plans:', error);
+        return defaultPricingPlans;
+    }
+    return data && data.length > 0 ? data : defaultPricingPlans;
 }
 
-export function savePricingPlans(plans: PricingPlan[]): void {
-    localStorage.setItem('admin_pricing', JSON.stringify(plans));
+export async function addPricingPlan(plan: Omit<PricingPlan, 'id'>): Promise<PricingPlan | null> {
+    const { data, error } = await supabase.from('pricing_plans').insert([plan]).select().single();
+    if (error) {
+        console.error('Error adding pricing plan:', error);
+        return null;
+    }
+    return data;
 }
 
-export function addPricingPlan(plan: Omit<PricingPlan, 'id'>): PricingPlan {
-    const plans = getPricingPlans();
-    const newPlan = { ...plan, id: generateId() };
-    plans.push(newPlan);
-    savePricingPlans(plans);
-    return newPlan;
+export async function updatePricingPlan(id: string, data: Partial<PricingPlan>): Promise<void> {
+    const { error } = await supabase.from('pricing_plans').update(data).eq('id', id);
+    if (error) console.error('Error updating pricing plan:', error);
 }
 
-export function updatePricingPlan(id: string, data: Partial<PricingPlan>): void {
-    const plans = getPricingPlans().map((p) => (p.id === id ? { ...p, ...data } : p));
-    savePricingPlans(plans);
-}
-
-export function deletePricingPlan(id: string): void {
-    savePricingPlans(getPricingPlans().filter((p) => p.id !== id));
+export async function deletePricingPlan(id: string): Promise<void> {
+    const { error } = await supabase.from('pricing_plans').delete().eq('id', id);
+    if (error) console.error('Error deleting pricing plan:', error);
 }

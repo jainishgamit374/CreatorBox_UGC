@@ -83,9 +83,30 @@ export default function Website() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Load data from admin store
-  const projects = getProjects();
-  const testimonials = getTestimonials().map(t => ({ ...t, role: t.company }));
-  const pricingPlans = getPricingPlans();
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [testimonials, setTestimonials] = useState<any[]>([]);
+  const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [projData, testData, pricingData] = await Promise.all([
+          getProjects(),
+          getTestimonials(),
+          getPricingPlans(),
+        ]);
+        setProjects(projData);
+        setTestimonials(testData.map(t => ({ ...t, role: t.company })));
+        setPricingPlans(pricingData);
+      } catch (error) {
+        console.error("Failed to load data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);

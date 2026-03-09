@@ -12,6 +12,8 @@ const Website = lazy(() => import("./pages/Website"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Feedback = lazy(() => import("./pages/Feedback"));
+const Login = lazy(() => import("./pages/Login"));
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -39,7 +41,15 @@ const App = () => (
             <Route path="/local-brands" element={<LocalBrands />} />
             <Route path="/online-brands" element={<OnlineBrands />} />
             <Route path="/website" element={<Website />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <Admin />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/feedback" element={<Feedback />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

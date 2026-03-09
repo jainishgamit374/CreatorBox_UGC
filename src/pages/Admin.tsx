@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { supabase } from '@/lib/supabase';
 import {
     Plus, Pencil, Trash2, Save, X, ArrowLeft, Briefcase, MessageSquareQuote, CreditCard,
     CheckCircle2, Star, AlertTriangle, Upload, ImageIcon
@@ -9,7 +10,7 @@ import {
     getProjects, addProject, updateProject, deleteProject,
     getTestimonials, addTestimonial, updateTestimonial, deleteTestimonial,
     getPricingPlans, addPricingPlan, updatePricingPlan, deletePricingPlan,
-    type Project, type Testimonial, type PricingPlan,
+    seedDatabase, type Project, type Testimonial, type PricingPlan,
 } from '@/data/adminStore';
 
 type Tab = 'projects' | 'testimonials' | 'pricing';
@@ -45,7 +46,11 @@ export default function Admin() {
     const [deleteConfirm, setDeleteConfirm] = useState<{ type: Tab; id: string } | null>(null);
 
     useEffect(() => {
-        refreshData();
+        const init = async () => {
+            await seedDatabase();
+            await refreshData();
+        };
+        init();
     }, []);
 
     useEffect(() => {
@@ -55,10 +60,15 @@ export default function Admin() {
         }
     }, [toast]);
 
-    const refreshData = () => {
-        setProjects(getProjects());
-        setTestimonials(getTestimonials());
-        setPricingPlans(getPricingPlans());
+    const refreshData = async () => {
+        const [projData, testData, pricingData] = await Promise.all([
+            getProjects(),
+            getTestimonials(),
+            getPricingPlans(),
+        ]);
+        setProjects(projData);
+        setTestimonials(testData);
+        setPricingPlans(pricingData);
     };
 
     const showToast = (message: string, type: 'success' | 'error' = 'success') => {
@@ -66,20 +76,20 @@ export default function Admin() {
     };
 
     // ──── Project CRUD ────
-    const handleSaveProject = () => {
+    const handleSaveProject = async () => {
         if (!projectForm.title || !projectForm.category || !projectForm.description) {
             showToast('Please fill all required fields', 'error');
             return;
         }
         if (editingProject) {
-            updateProject(editingProject.id, projectForm);
+            await updateProject(editingProject.id, projectForm);
             showToast('Project updated successfully');
         } else {
-            addProject(projectForm);
+            await addProject(projectForm);
             showToast('Project added successfully');
         }
         resetProjectForm();
-        refreshData();
+        await refreshData();
     };
 
     const handleEditProject = (project: Project) => {
@@ -113,7 +123,7 @@ export default function Admin() {
     };
 
     // ──── Testimonial CRUD ────
-    const handleSaveTestimonial = () => {
+    const handleSaveTestimonial = async () => {
         if (!testimonialForm.quote || !testimonialForm.name || !testimonialForm.company) {
             showToast('Please fill all required fields', 'error');
             return;
@@ -121,14 +131,14 @@ export default function Admin() {
         const initials = testimonialForm.initials || testimonialForm.name.split(' ').map(n => n[0]).join('').toUpperCase();
         const data = { ...testimonialForm, initials };
         if (editingTestimonial) {
-            updateTestimonial(editingTestimonial.id, data);
+            await updateTestimonial(editingTestimonial.id, data);
             showToast('Testimonial updated successfully');
         } else {
-            addTestimonial(data);
+            await addTestimonial(data);
             showToast('Testimonial added successfully');
         }
         resetTestimonialForm();
-        refreshData();
+        await refreshData();
     };
 
     const handleEditTestimonial = (t: Testimonial) => {
@@ -144,7 +154,7 @@ export default function Admin() {
     };
 
     // ──── Pricing CRUD ────
-    const handleSavePlan = () => {
+    const handleSavePlan = async () => {
         if (!planForm.name || !planForm.price || !planForm.description) {
             showToast('Please fill all required fields', 'error');
             return;
@@ -152,14 +162,14 @@ export default function Admin() {
         const features = planForm.features.split('\n').filter(f => f.trim());
         const data = { name: planForm.name, price: planForm.price, description: planForm.description, features, popular: planForm.popular };
         if (editingPlan) {
-            updatePricingPlan(editingPlan.id, data);
+            await updatePricingPlan(editingPlan.id, data);
             showToast('Pricing plan updated successfully');
         } else {
-            addPricingPlan(data);
+            await addPricingPlan(data);
             showToast('Pricing plan added successfully');
         }
         resetPlanForm();
-        refreshData();
+        await refreshData();
     };
 
     const handleEditPlan = (plan: PricingPlan) => {
@@ -175,21 +185,21 @@ export default function Admin() {
     };
 
     // ──── Delete ────
-    const handleDelete = () => {
+    const handleDelete = async () => {
         if (!deleteConfirm) return;
         const { type, id } = deleteConfirm;
         if (type === 'projects') {
-            deleteProject(id);
+            await deleteProject(id);
             showToast('Project deleted');
         } else if (type === 'testimonials') {
-            deleteTestimonial(id);
+            await deleteTestimonial(id);
             showToast('Testimonial deleted');
         } else {
-            deletePricingPlan(id);
+            await deletePricingPlan(id);
             showToast('Plan deleted');
         }
         setDeleteConfirm(null);
-        refreshData();
+        await refreshData();
     };
 
     const openAddModal = () => {
@@ -234,12 +244,25 @@ export default function Admin() {
                             <span className="text-muted-foreground font-sans text-sm font-medium ml-2">Admin</span>
                         </h1>
                     </div>
-                    <Link
-                        to="/website"
-                        className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-                    >
-                        View Website →
-                    </Link>
+                    <div className="flex items-center gap-4">
+                        <Link
+                            to="/website"
+                            className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                        >
+                            View Website →
+                        </Link>
+                        <div className="w-px h-6 bg-border" />
+                        <button
+                            onClick={async () => {
+                                await supabase.auth.signOut();
+                                window.location.href = '/';
+                            }}
+                            className="flex items-center gap-2 text-sm font-semibold text-destructive hover:bg-destructive/10 px-3 py-1.5 rounded-lg transition-all"
+                        >
+                            <X size={16} />
+                            Log Out
+                        </button>
+                    </div>
                 </div>
             </header>
 

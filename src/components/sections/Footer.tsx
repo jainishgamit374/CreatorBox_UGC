@@ -106,6 +106,7 @@ export default function Footer() {
         <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} RevouGC. All rights reserved.
+            <Link to="/admin" className="ml-4 hover:text-primary transition-colors opacity-50 hover:opacity-100">Admin</Link>
           </p>
           <div className="flex gap-6">
             {['Privacy Policy', 'Terms of Service'].map((link) => (
