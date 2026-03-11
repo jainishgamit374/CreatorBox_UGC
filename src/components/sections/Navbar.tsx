@@ -48,7 +48,7 @@ export default function Navbar() {
             to="/"
             className="flex items-center gap-2 font-display text-xl font-extrabold tracking-wide transition-colors"
           >
-            <img src="/logo.png" alt="REVOUGC Logo" className="h-8 w-8 rounded-md object-cover" />
+            <img src="/logo1.png" alt="REVOUGC Logo" className="h-8 w-8 rounded-md object-cover" />
             <span className="uppercase">
               <span className="text-foreground">REVO</span>
               <span className="text-primary">UGC</span>
@@ -118,7 +118,7 @@ export default function Navbar() {
             >
               <div className="flex items-center justify-between p-6 border-b border-border/50">
                 <span className="flex items-center gap-2 font-display text-lg font-extrabold tracking-wide">
-                  <img src="/logo.png" alt="REVOUGC Logo" className="h-7 w-7 rounded-md object-cover" />
+                  <img src="/logo1.png" alt="REVOUGC Logo" className="h-7 w-7 rounded-md object-cover" />
                   <span className="uppercase">
                     <span className="text-foreground">REVO</span>
                     <span className="text-primary">UGC</span>

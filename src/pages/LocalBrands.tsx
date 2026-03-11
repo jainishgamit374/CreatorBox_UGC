@@ -140,12 +140,12 @@ export default function LocalBrands() {
                   className="group relative bg-[#0f0f11] rounded-3xl aspect-[9/16] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer border border-white/5"
                 >
                   {/* Subtle hover background sweep */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent z-10" />
 
                   {/* Placeholder for Video/Image */}
-                  <div className="absolute inset-0 bg-slate-800">
+                  <div className="absolute inset-0 bg-muted">
                     {/* Dark gradient for thumbnail presence */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-slate-900 to-slate-800 group-hover:scale-105 transition-transform duration-700" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-muted to-muted/50 group-hover:scale-105 transition-transform duration-700" />
                   </div>
 
                   {/* Top Badge */}
@@ -173,7 +173,7 @@ export default function LocalBrands() {
                       </h3>
 
                       {/* Hover Arrow Indicator - Moves down into view */}
-                      <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full bg-white text-black opacity-0 translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                      <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full bg-primary text-primary-foreground opacity-0 translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
                         <ArrowRight className="w-4 h-4 md:w-5 md:h-5 rotate-45 group-hover:rotate-0 transition-transform duration-500" />
                       </div>
                     </div>
