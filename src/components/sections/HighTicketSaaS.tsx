@@ -69,11 +69,8 @@ export default function HighTicketSaaS() {
   return (
     <section
       ref={sectionRef}
-      className="section-padding relative overflow-hidden"
+      className="section-padding relative overflow-hidden bg-background"
       aria-label="High-Ticket SaaS UGC"
-      style={{
-        background: 'linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(215 35% 12%) 50%, hsl(221 50% 15%) 100%)',
-      }}
     >
       {/* Ambient glow effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
@@ -97,7 +94,7 @@ export default function HighTicketSaaS() {
               High-Ticket SaaS
             </span>
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-[1.05] mb-6">
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-foreground leading-[1.05] mb-6">
             UGC that sells{' '}
             <span
               className="italic"
@@ -111,7 +108,7 @@ export default function HighTicketSaaS() {
               high-ticket SaaS
             </span>
           </h2>
-          <p className="text-lg text-white/60 leading-relaxed max-w-2xl">
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
             Your SaaS product needs more than stock footage. We create authentic UGC — founder stories,
             product demos, and testimonial ads — that convert B2B buyers and reduce your CAC.
           </p>
@@ -124,7 +121,7 @@ export default function HighTicketSaaS() {
               <div className="text-3xl md:text-4xl font-bold font-display text-primary mb-1">
                 {metric.value}
               </div>
-              <div className="text-xs md:text-sm text-white/40 font-medium">{metric.label}</div>
+              <div className="text-xs md:text-sm text-muted-foreground font-medium">{metric.label}</div>
             </div>
           ))}
         </div>
@@ -136,13 +133,13 @@ export default function HighTicketSaaS() {
               key={feature.title}
               whileHover={{ y: -6, scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-              className="saas-card group p-6 rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm hover:bg-white/[0.06] hover:border-primary/20 transition-colors duration-300"
+              className="saas-card group p-6 rounded-2xl border border-border bg-card shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300"
             >
               <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-300">
                 <feature.icon size={20} className="text-primary" />
               </div>
-              <h3 className="text-base font-semibold text-white mb-2">{feature.title}</h3>
-              <p className="text-sm text-white/50 leading-relaxed">{feature.description}</p>
+              <h3 className="text-base font-semibold text-foreground mb-2">{feature.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
             </motion.div>
           ))}
         </div>
@@ -165,8 +162,8 @@ export default function HighTicketSaaS() {
               <ArrowRight size={16} />
             </motion.span>
           </Link>
-          <span className="text-sm text-white/40">
-            Plans from <span className="text-white/70 font-semibold">₹999</span> · Delivery in 10 days
+          <span className="text-sm text-muted-foreground">
+            Plans from <span className="text-foreground font-semibold">₹999</span> · Delivery in 10 days
           </span>
         </motion.div>
       </div>

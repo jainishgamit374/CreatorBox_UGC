@@ -39,8 +39,11 @@ export default function Footer() {
                 Accepting new brands
               </div>
 
-              <Link to="/feedback" className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full border border-border bg-card text-muted-foreground hover:bg-primary/5 hover:border-primary/50 hover:text-primary transition-all shadow-sm">
-                <MessageSquare size={13} />
+              <Link
+                to="/feedback"
+                className="inline-flex items-center gap-2 text-xs font-bold px-4 py-2 flex-shrink-0 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-105 transition-all shadow-md shadow-primary/20 ring-2 ring-transparent hover:ring-primary/30"
+              >
+                <MessageSquare size={14} />
                 Leave Feedback
               </Link>
             </div>

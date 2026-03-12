@@ -86,7 +86,7 @@ export default function CreatorOnboarding() {
             {/* ── Section ── */}
             <section
                 id="creator-onboarding"
-                className="section-padding bg-foreground text-background overflow-hidden relative"
+                className="section-padding bg-background text-foreground overflow-hidden relative"
                 aria-label="Creator Onboarding"
             >
                 {/* decorative blobs */}
@@ -115,7 +115,7 @@ export default function CreatorOnboarding() {
                                 Are you a{' '}
                                 <span className="text-primary italic">Content Creator?</span>
                             </h2>
-                            <p className="text-background/70 leading-relaxed mb-8 text-lg">
+                            <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
                                 Join the RevouGC creator network and get paid to create authentic UGC
                                 for India's fastest-growing brands. Fill out the form and we'll reach out with matching opportunities.
                             </p>
@@ -126,7 +126,7 @@ export default function CreatorOnboarding() {
                                         <span className="w-9 h-9 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
                                             <Icon size={17} className="text-primary" />
                                         </span>
-                                        <span className="text-background/80 text-sm font-medium">{text}</span>
+                                        <span className="text-foreground/80 text-sm font-medium">{text}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -161,21 +161,21 @@ export default function CreatorOnboarding() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.12 }}
-                                    className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-5 py-4 backdrop-blur-sm"
+                                    className="flex items-center gap-4 bg-card border border-border rounded-2xl px-5 py-4 shadow-sm"
                                 >
-                                    <div className="w-11 h-11 rounded-full bg-primary/30 flex items-center justify-center text-xl font-bold text-primary">
+                                    <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center text-xl font-bold text-primary">
                                         {c.name[0]}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <p className="text-background font-semibold text-sm">{c.name}</p>
-                                        <p className="text-background/50 text-xs truncate">{c.niche} · {c.handle}</p>
+                                        <p className="text-foreground font-semibold text-sm">{c.name}</p>
+                                        <p className="text-muted-foreground text-xs truncate">{c.niche} · {c.handle}</p>
                                     </div>
                                     <span className="text-xs font-bold bg-primary/10 px-2.5 py-1 rounded-full whitespace-nowrap">
                                         {c.followers}
                                     </span>
                                 </motion.div>
                             ))}
-                            <p className="text-center text-background/30 text-xs mt-2">Sample creators in our network</p>
+                            <p className="text-center text-muted-foreground text-xs mt-2">Sample creators in our network</p>
                         </motion.div>
                     </div>
                 </div>

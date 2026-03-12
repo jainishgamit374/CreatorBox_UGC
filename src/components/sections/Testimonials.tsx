@@ -45,7 +45,7 @@ export default function Testimonials() {
   }, [isPaused, next]);
 
   return (
-    <section className="section-padding bg-foreground" aria-label="Testimonials">
+    <section className="section-padding bg-background" aria-label="Testimonials">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -58,7 +58,7 @@ export default function Testimonials() {
             <span className="w-8 h-0.5 bg-primary" />
             <span className="text-sm font-medium text-primary uppercase tracking-widest">Testimonials</span>
           </div>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
             What brands{' '}
             <span className="italic text-primary">say</span>
           </h2>
@@ -82,16 +82,16 @@ export default function Testimonials() {
                 exit={{ opacity: 0, x: -40 }}
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
               >
-                <blockquote className="text-lg md:text-xl text-white/80 leading-relaxed mb-8 relative z-10">
+                <blockquote className="text-lg md:text-xl text-foreground/80 leading-relaxed mb-8 relative z-10">
                   "{testimonials[current].quote}"
                 </blockquote>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
-                    <span className="text-white/80 font-bold text-sm">{testimonials[current].initials}</span>
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+                    <span className="text-primary font-bold text-sm">{testimonials[current].initials}</span>
                   </div>
                   <div>
-                    <div className="font-semibold text-white">{testimonials[current].name}</div>
-                    <div className="text-sm text-white/50">{testimonials[current].company}</div>
+                    <div className="font-semibold text-foreground">{testimonials[current].name}</div>
+                    <div className="text-sm text-muted-foreground">{testimonials[current].company}</div>
                   </div>
                 </div>
               </motion.div>
@@ -107,17 +107,16 @@ export default function Testimonials() {
                   className="relative flex items-center justify-center w-6 h-6"
                   aria-label={`Go to testimonial ${i + 1}`}
                 >
-                  <span className={`block transition-all duration-300 rounded-full ${
-                    i === current ? 'w-8 h-2 bg-primary' : 'w-2 h-2 bg-white/30 hover:bg-white/50'
-                  }`} />
+                  <span className={`block transition-all duration-300 rounded-full ${i === current ? 'w-8 h-2 bg-primary' : 'w-2 h-2 bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                    }`} />
                 </button>
               ))}
             </div>
             <div className="flex gap-2 ml-auto">
-              <button onClick={prev} className="w-10 h-10 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors flex items-center justify-center" aria-label="Previous">
+              <button onClick={prev} className="w-10 h-10 rounded-full border border-border text-foreground hover:bg-accent transition-colors flex items-center justify-center" aria-label="Previous">
                 <ChevronLeft size={18} />
               </button>
-              <button onClick={next} className="w-10 h-10 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors flex items-center justify-center" aria-label="Next">
+              <button onClick={next} className="w-10 h-10 rounded-full border border-border text-foreground hover:bg-accent transition-colors flex items-center justify-center" aria-label="Next">
                 <ChevronRight size={18} />
               </button>
             </div>
